@@ -1,7 +1,6 @@
 package com.wildevent.WildEventMenager.event;
 
 import com.wildevent.WildEventMenager.location.Location;
-import com.wildevent.WildEventMenager.notification.Notification;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
 
@@ -29,8 +28,5 @@ public class Event {
 
     @ManyToMany
     private List<WildUser> organizers;
-
-    @OneToMany(mappedBy = "eventItAppliesTo")
-    private List<Notification> notifications;
 
 }
