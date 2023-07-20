@@ -13,7 +13,7 @@ public class Coordinate {
 
     @OneToOne(mappedBy = "coordinate")
     private Location location;
-    private int coordinateXOnMap;
-    private int coordinateYOnMap;
+    private double coordinateX;
+    private double coordinateY;
 
 }

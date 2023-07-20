@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "wild_user")
 public class WildUser {
 
     @Id
@@ -19,10 +20,10 @@ public class WildUser {
     private boolean active;
 
     @ManyToMany
-    private List<Location> locations;
+    private List<Location> location;
 
-    @ManyToMany(mappedBy = "organizers")
-    private List<Event> eventsOrganized;
+    @ManyToMany(mappedBy = "organizer")
+    private List<Event> eventOrganized;
 
     @OneToMany(mappedBy = "userProposing")
     private List<Event> eventsProposed;

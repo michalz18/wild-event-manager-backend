@@ -4,6 +4,7 @@ import com.wildevent.WildEventMenager.location.Location;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,12 @@ public class Event {
 
     private String title;
 
+    @Lob
+    @Column(length = 1000)
     private String description;
+
+    private LocalDateTime startsAt;
+    private LocalDateTime endsAt;
 
     @ManyToOne
     private Location location;
@@ -27,6 +33,6 @@ public class Event {
     private WildUser userProposing;
 
     @ManyToMany
-    private List<WildUser> organizers;
+    private List<WildUser> organizer;
 
 }
