@@ -14,24 +14,17 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     private String title;
-
     @Lob
     @Column(length = 1000)
     private String description;
-
     private LocalDateTime startsAt;
     private LocalDateTime endsAt;
-
     @ManyToOne
     private Location location;
-
     private boolean accepted;
-
     @ManyToOne
     private WildUser userProposing;
-
     @ManyToMany
     private List<WildUser> organizer;
 
