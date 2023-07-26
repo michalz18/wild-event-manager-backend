@@ -24,11 +24,15 @@ public class EventController {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Object> getEventById(@PathVariable UUID id) {
-        EventDTO event = eventService.getEventById(id);
-        if (event != null) {
-            return ResponseEntity.ok(event);
-        } else {
-            return ResponseEntity.notFound().build();
+        try {
+            EventDTO event = eventService.getEventById(id);
+            if (event != null) {
+                return ResponseEntity.ok(event);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid UUID format");
         }
     }
 }
