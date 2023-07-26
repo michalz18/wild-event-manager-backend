@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("no-auth/map")
+@RequestMapping("/map")
 public class MapController {
 
     private final MapRepository mapRepository;
