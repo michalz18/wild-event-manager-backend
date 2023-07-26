@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.location;
+package com.wildevent.WildEventMenager.location.model;
 
 import com.wildevent.WildEventMenager.event.Event;
 import com.wildevent.WildEventMenager.user.WildUser;
