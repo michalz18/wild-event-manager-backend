@@ -15,6 +15,10 @@ import java.util.UUID;
 
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 @Entity
 public class Event {
 
