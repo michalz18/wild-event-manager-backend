@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.dto;
+package com.wildevent.WildEventMenager.event.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,12 +6,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 @Setter
 @Getter
-public class EventDTO {
+public class EventTitleDTO {
     private String title;
     private LocalDateTime startsAt;
     private String location;
 
-    public EventDTO(String title, LocalDateTime startsAt, String location) {
+    public EventTitleDTO(String title, LocalDateTime startsAt, String location) {
         this.title = title;
         this.startsAt = startsAt;
         this.location = location;

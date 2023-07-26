@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.event;
+package com.wildevent.WildEventMenager.event.model;
 
 import com.wildevent.WildEventMenager.location.Location;
 import com.wildevent.WildEventMenager.user.WildUser;
@@ -20,7 +20,7 @@ public class Event {
     private String description;
     private LocalDateTime startsAt;
     private LocalDateTime endsAt;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Location location;
     private boolean accepted;
     @ManyToOne

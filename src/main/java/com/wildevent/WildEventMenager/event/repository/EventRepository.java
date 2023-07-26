@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.event.repository;
 
-import com.wildevent.WildEventMenager.dto.EventDTO;
-import com.wildevent.WildEventMenager.event.Event;
+import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
+import com.wildevent.WildEventMenager.event.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,5 +16,5 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
             "FROM Event e " +
             "JOIN e.location l " +
             "WHERE e.startsAt >= :now AND e.startsAt <= :end AND e.accepted = true")
-    List<EventDTO> findUpcomingEvents(@Param("now") LocalDateTime now, @Param("end") LocalDateTime endOfDay);
+    List<EventTitleDTO> findUpcomingEvents(@Param("now") LocalDateTime now, @Param("end") LocalDateTime endOfDay);
 }
