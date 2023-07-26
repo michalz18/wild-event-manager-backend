@@ -1,6 +1,6 @@
 package com.wildevent.WildEventMenager.location.controller;
 
-import com.wildevent.WildEventMenager.location.model.LocationPointDto;
+import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class LocationController {
     }
 
     @GetMapping
-    List<LocationPointDto> getLocationPoints() {
+    List<LocationPointDTO> getLocationPoints() {
         return locationService.getLocationPoints();
     }
 
