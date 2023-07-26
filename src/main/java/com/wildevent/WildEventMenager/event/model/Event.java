@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.event;
+package com.wildevent.WildEventMenager.event.model;
 
 
 import com.wildevent.WildEventMenager.location.Location;
@@ -15,12 +15,8 @@ import java.util.UUID;
 
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Event {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,7 +35,7 @@ public class Event {
     private LocalDateTime endsAt;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Location location;
 
 

@@ -1,6 +1,6 @@
 package com.wildevent.WildEventMenager.event.repository;
 
-import com.wildevent.WildEventMenager.event.Event;
+import com.wildevent.WildEventMenager.event.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

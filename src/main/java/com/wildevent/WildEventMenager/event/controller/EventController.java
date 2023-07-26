@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.event.controller;
 
 
-import com.wildevent.WildEventMenager.event.Event;
+import com.wildevent.WildEventMenager.event.model.EventDTO;
 import com.wildevent.WildEventMenager.event.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class EventController {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Object> getEventById(@PathVariable UUID id) {
-        Event event = eventService.getEventById(id);
+        EventDTO event = eventService.getEventById(id);
         if (event != null) {
             return ResponseEntity.ok(event);
         } else {

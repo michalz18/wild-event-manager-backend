@@ -1,12 +1,16 @@
 package com.wildevent.WildEventMenager.location;
 
-import com.wildevent.WildEventMenager.event.Event;
+import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
-
+@Data
 @Entity
 public class Location {
     @Id
