@@ -8,15 +8,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService{
     private final EventRepository eventRepository;
+    private final EventTitleDTOMapper eventTitleDTOMapper;
 
     @Autowired
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository, EventTitleDTOMapper eventTitleDTOMapper) {
         this.eventRepository = eventRepository;
+        this.eventTitleDTOMapper = eventTitleDTOMapper;
     }
 
     @Override
@@ -25,8 +26,7 @@ public class EventServiceImpl implements EventService{
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         List<Event> events = eventRepository.findAllByAcceptedTrueAndStartsAtBetween(now, endOfDay);
 
-        return events.stream()
-                .map(e -> new EventTitleDTO(e.getId(), e.getTitle(), e.getStartsAt(), e.getLocation().getTitle()))
-                .collect(Collectors.toList());
+        return eventTitleDTOMapper.getEventTitlesDTOFromEvent(events);
     }
 }
+
