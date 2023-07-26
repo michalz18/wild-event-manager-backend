@@ -12,10 +12,12 @@ import java.util.UUID;
 @Service
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
+    private final LocationDTOMapper locationDTOMapper;
 
     @Autowired
-    public LocationServiceImpl(LocationRepository locationRepository) {
+    public LocationServiceImpl(LocationRepository locationRepository, LocationDTOMapper locationDTOMapper) {
         this.locationRepository = locationRepository;
+        this.locationDTOMapper = locationDTOMapper;
     }
 
     @Override
@@ -23,11 +25,7 @@ public class LocationServiceImpl implements LocationService {
         Optional<Location> locationOptional = locationRepository.findById(id);
         if (locationOptional.isPresent()) {
             Location location = locationOptional.get();
-            return new LocationDTO(
-                    location.getId(),
-                    location.getTitle(),
-                    location.getDescription()
-            );
+            return locationDTOMapper.mapToDTO(location);
         }
         return null;
     }

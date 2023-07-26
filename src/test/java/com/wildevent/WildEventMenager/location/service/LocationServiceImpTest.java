@@ -21,6 +21,9 @@ class LocationServiceTest {
     @Mock
     private LocationRepository locationRepository;
 
+    @Mock
+    private LocationDTOMapper locationDTOMapper;
+
     @InjectMocks
     private LocationServiceImpl locationService;
 
@@ -40,19 +43,25 @@ class LocationServiceTest {
         location.setTitle(title);
         location.setDescription(description);
 
+        LocationDTO locationDTO = new LocationDTO(existingId, title, description);
+
         when(locationRepository.findById(existingId)).thenReturn(Optional.of(location));
+        when(locationDTOMapper.mapToDTO(location)).thenReturn(locationDTO);
 
         // Act
-        LocationDTO locationDTO = locationService.getLocationById(existingId);
+        LocationDTO resultDTO = locationService.getLocationById(existingId);
 
         // Assert
-        assertNotNull(locationDTO);
-        assertEquals(existingId, locationDTO.id());
-        assertEquals(title, locationDTO.title());
-        assertEquals(description, locationDTO.description());
+        assertNotNull(resultDTO);
+        assertEquals(existingId, resultDTO.id());
+        assertEquals(title, resultDTO.title());
+        assertEquals(description, resultDTO.description());
 
         // Verify that locationRepository.findById() was called once with the correct id
         verify(locationRepository, times(1)).findById(existingId);
+
+        // Verify that locationDTOMapper.mapToDTO() was called once with the correct location
+        verify(locationDTOMapper, times(1)).mapToDTO(location);
     }
 
     @Test
