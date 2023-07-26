@@ -12,22 +12,18 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
 
-    public LocationServiceImpl(LocationRepository locationRepository) {
+    private final LocationPointDtoMapper locationPointDtoMapper;
+
+    public LocationServiceImpl(LocationRepository locationRepository, LocationPointDtoMapper locationPointDtoMapper) {
         this.locationRepository = locationRepository;
+        this.locationPointDtoMapper = locationPointDtoMapper;
     }
 
     @Override
     public List<LocationPointDto> getLocationPoints() {
-        return locationRepository.findAll()
-                .stream()
-                .map(this::getLocationPointDtoFromLocation)
-                .toList();
+        List<Location> locations = locationRepository.findAll();
+        return locationPointDtoMapper.getLocationPointsDtoFromLocation(locations);
     }
 
-    public LocationPointDto getLocationPointDtoFromLocation(Location location) {
-        return new LocationPointDto(
-                location.getId(),
-                location.getCoordinate().getCoordinateX(),
-                location.getCoordinate().getCoordinateY());
-    }
+
 }
