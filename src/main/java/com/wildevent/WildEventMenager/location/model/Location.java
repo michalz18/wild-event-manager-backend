@@ -14,7 +14,6 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
-
     @Lob
     @Column(length = 1000)
     private String description;

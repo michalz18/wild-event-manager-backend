@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.location.service;
+package com.wildevent.WildEventMenager.location.service.dtoMappers;
 
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
@@ -8,7 +8,6 @@ import java.util.List;
 
 @Service
 public class LocationPointDTOMapperImpl implements LocationPointDTOMapper {
-
     @Override
     public List<LocationPointDTO> getLocationPointsDtoFromLocation(List<Location> locations) {
         return locations
