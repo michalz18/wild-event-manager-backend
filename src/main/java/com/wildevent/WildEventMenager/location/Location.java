@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.Data;
 import java.util.List;
 import java.util.UUID;
+
 @Data
 @Entity
+@Data
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
