@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/event")
 public class EventController {
@@ -21,8 +21,6 @@ public class EventController {
         this.eventService = eventService;
     }
 
-
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Object> getEventById(@PathVariable UUID id) {
         try {
