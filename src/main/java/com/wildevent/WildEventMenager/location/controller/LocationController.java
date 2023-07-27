@@ -1,34 +1,33 @@
 package com.wildevent.WildEventMenager.location.controller;
 
-<<<<<<< HEAD
-import com.wildevent.WildEventMenager.location.model.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.service.LocationService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.wildevent.WildEventMenager.location.model.LocationDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/location")
 @CrossOrigin(origins = "http://localhost:3000")
-=======
-import com.wildevent.WildEventMenager.location.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping(("/"))
->>>>>>> development
 public class LocationController {
+
     private final LocationService locationService;
 
     @Autowired
     public LocationController(LocationService locationService) {
         this.locationService = locationService;
     }
-<<<<<<< HEAD
+
+    @GetMapping
+    List<LocationPointDTO> getLocationPoints() {
+        return locationService.getLocationPoints();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getLocationById(@PathVariable UUID id) {
@@ -43,7 +42,5 @@ public class LocationController {
             return ResponseEntity.badRequest().body("Invalid UUID format");
         }
     }
+
 }
-=======
-}
->>>>>>> development
