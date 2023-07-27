@@ -1,14 +1,16 @@
-package com.wildevent.WildEventMenager.event;
+package com.wildevent.WildEventMenager.event.model;
 
 import com.wildevent.WildEventMenager.location.Location;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Data
 public class Event {
 
     @Id
@@ -22,9 +24,10 @@ public class Event {
     private String description;
 
     private LocalDateTime startsAt;
+
     private LocalDateTime endsAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Location location;
 
     private boolean accepted;

@@ -1,6 +1,6 @@
 package com.wildevent.WildEventMenager.user;
 
-import com.wildevent.WildEventMenager.event.Event;
+import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.location.Location;
 import jakarta.persistence.*;
 
