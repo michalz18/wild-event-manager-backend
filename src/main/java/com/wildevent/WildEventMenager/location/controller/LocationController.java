@@ -20,12 +20,16 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LocationDTO> getLocationById(@PathVariable UUID id) {
+    public ResponseEntity<Object> getLocationById(@PathVariable UUID id) {
         LocationDTO locationDTO = locationService.getLocationById(id);
-        if (locationDTO != null) {
-            return ResponseEntity.ok().body(locationDTO);
-        } else {
-            return ResponseEntity.notFound().build();
+        try {
+            if (locationDTO != null) {
+                return ResponseEntity.ok().body(locationDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid UUID format");
         }
     }
 }
