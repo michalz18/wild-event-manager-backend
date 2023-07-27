@@ -3,11 +3,15 @@ package com.wildevent.WildEventMenager.location;
 import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import lombok.Data;
 import java.util.List;
 import java.util.UUID;
 
+@Data
 @Entity
 @Data
 public class Location {

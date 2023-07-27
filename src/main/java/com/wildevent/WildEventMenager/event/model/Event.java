@@ -3,14 +3,23 @@ package com.wildevent.WildEventMenager.event.model;
 import com.wildevent.WildEventMenager.location.Location;
 import com.wildevent.WildEventMenager.user.WildUser;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import com.wildevent.WildEventMenager.location.Location;
+import com.wildevent.WildEventMenager.user.WildUser;
+import jakarta.persistence.*;
+import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Event {
 
     @Id
@@ -22,7 +31,7 @@ public class Event {
     @Lob
     @Column(length = 1000)
     private String description;
-
+  
     private LocalDateTime startsAt;
 
     private LocalDateTime endsAt;
@@ -37,5 +46,4 @@ public class Event {
 
     @ManyToMany
     private List<WildUser> organizer;
-
 }

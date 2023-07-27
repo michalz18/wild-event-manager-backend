@@ -1,9 +1,10 @@
 package com.wildevent.WildEventMenager.location;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.UUID;
-
+@Data
 @Entity
 public class Coordinate {
 
