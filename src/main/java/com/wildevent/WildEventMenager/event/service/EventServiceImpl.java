@@ -33,10 +33,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventTitleDTO> getTodayEvents() {
+    public List<EventTitleDTO> getTodayIncomingEvents() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
-        List<Event> todayEvents = eventRepository.findAllByAcceptedTrueAndStartsAtBetween(now, endOfDay);
+        List<Event> todayEvents = eventRepository.findAllByAcceptedTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
         return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
     }
 }

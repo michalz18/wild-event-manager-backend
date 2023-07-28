@@ -12,6 +12,6 @@ import java.util.List;
 @Service
 public interface EventService {
   
-    List<EventTitleDTO> getTodayEvents();
+    List<EventTitleDTO> getTodayIncomingEvents();
     Optional<EventDTO> getEventById(UUID id);
 }

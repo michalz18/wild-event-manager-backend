@@ -1,6 +1,5 @@
 package com.wildevent.WildEventMenager.event.controller;
 
-import com.wildevent.WildEventMenager.event.model.EventDTO;
 import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.service.EventServiceImpl;
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -36,7 +34,7 @@ public class EventController {
     }
     @GetMapping(value = NO_AUTH_EVENT_URL + "/today")
     public ResponseEntity<List<EventTitleDTO>> getTodayEvents() {
-        return ResponseEntity.ok().body(eventService.getTodayEvents());
+        return ResponseEntity.ok().body(eventService.getTodayIncomingEvents());
     }
 
 }
