@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EventServiceImplTest {
 
@@ -64,7 +63,7 @@ class EventServiceImplTest {
         Mockito.when(eventRepository.findById(uuid)).thenReturn(Optional.of(mockEvent));
 
 
-        EventDTO eventDTO = eventServiceImpl.getEventById(uuid);
+        EventDTO eventDTO = eventServiceImpl.getEventById(uuid).get();
 
 
         assertEquals("Sample Event", eventDTO.title());
