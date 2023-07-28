@@ -29,8 +29,8 @@ public class LocationController {
     }
 
     @GetMapping(value = NO_AUTH_LOCATION_URL)
-    List<LocationPointDTO> getLocationPoints() {
-        return locationService.getLocationPoints();
+    public ResponseEntity<List<LocationPointDTO>> getLocationPoints() {
+        return ResponseEntity.ok().body(locationService.getLocationPoints());
     }
 
     @GetMapping(value = NO_AUTH_LOCATION_URL +"/{id}")
