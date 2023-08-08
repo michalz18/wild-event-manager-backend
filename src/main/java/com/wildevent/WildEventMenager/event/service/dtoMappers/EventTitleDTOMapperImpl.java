@@ -18,6 +18,5 @@ public class EventTitleDTOMapperImpl implements EventTitleDTOMapper {
 
     private EventTitleDTO getEventTitleDTOFromEvent(Event event) {
         return new EventTitleDTO(event.getId(), event.getTitle(), event.getStartsAt(), event.getLocation().getTitle());
-
     }
 }

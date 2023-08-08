@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class LocationPointDTOMapperImpl implements LocationPointDTOMapper {
+
     @Override
     public List<LocationPointDTO> getLocationPointsDtoFromLocation(List<Location> locations) {
         return locations
