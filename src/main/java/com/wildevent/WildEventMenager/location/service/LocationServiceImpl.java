@@ -35,15 +35,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationDTO getLocationById(UUID id) {
+    public Optional<LocationDTO> getLocationById(UUID id) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
-        Optional<Location> locationOptional = locationRepository.findLocationWithEventsBetweenDates(id, now, endOfDay);
-        if (locationOptional.isPresent()) {
-            Location location = locationOptional.get();
-            return locationDTOMapper.mapToDTO(location);
-        }
-        return null;
+        return locationRepository.findLocationWithEventsBetweenDates(id, now, endOfDay)
+                        .map(locationDTOMapper::getLocationDtoFromLocation);
     }
 
 }
