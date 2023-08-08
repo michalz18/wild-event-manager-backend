@@ -4,8 +4,12 @@ import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.model.LocationDTO;
 import com.wildevent.WildEventMenager.location.repository.LocationRepository;
+import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationDTOMapper;
+import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationPointDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,13 +38,14 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDTO getLocationById(UUID id) {
-        Optional<Location> locationOptional = locationRepository.findById(id);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
+        Optional<Location> locationOptional = locationRepository.findLocationWithEventsBetweenDates(id, now, endOfDay);
         if (locationOptional.isPresent()) {
             Location location = locationOptional.get();
             return locationDTOMapper.mapToDTO(location);
         }
         return null;
     }
-
 
 }

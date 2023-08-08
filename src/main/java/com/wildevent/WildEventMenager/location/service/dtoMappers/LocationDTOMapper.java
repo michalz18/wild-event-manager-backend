@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.location.service;
+package com.wildevent.WildEventMenager.location.service.dtoMappers;
 
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.LocationDTO;

@@ -5,6 +5,7 @@ import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.event.model.EventDTO;
 import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
+import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Service
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
-    private EventTitleDTOMapper eventTitleDTOMapper;
+    private final EventTitleDTOMapper eventTitleDTOMapper;
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository, EventTitleDTOMapper eventTitleDTOMapper) {
