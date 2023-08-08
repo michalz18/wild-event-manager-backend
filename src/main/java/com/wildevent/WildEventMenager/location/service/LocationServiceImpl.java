@@ -18,9 +18,7 @@ import java.util.UUID;
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
-
     private final LocationDTOMapper locationDTOMapper;
-
     private final LocationPointDTOMapper locationPointDtoMapper;
 
     @Autowired

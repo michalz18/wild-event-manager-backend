@@ -2,9 +2,13 @@ package com.wildevent.WildEventMenager.location.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Coordinate {
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class EventTitleDTOMapperImpl implements EventTitleDTOMapper {
     @Override
@@ -16,7 +17,6 @@ public class EventTitleDTOMapperImpl implements EventTitleDTOMapper {
     }
 
     private EventTitleDTO getEventTitleDTOFromEvent(Event event) {
-        return new EventTitleDTO(event.getId(), event.getLocation().getId(), event.getTitle(), event.getStartsAt(), event.getLocation().getTitle());
-
+        return new EventTitleDTO(event.getId(), event.getTitle(), event.getStartsAt(), event.getLocation().getTitle());
     }
 }

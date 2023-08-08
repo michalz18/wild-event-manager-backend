@@ -1,43 +1,41 @@
 package com.wildevent.WildEventMenager.event.controller;
 
-import com.wildevent.WildEventMenager.event.model.EventDTO;
 import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.service.EventServiceImpl;
+import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/event")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
-    private final EventServiceImpl eventService;
 
+    private final static String EVENT_URL = "/event";
+    private final static String NO_AUTH_EVENT_URL = AccessUrlProvider.NO_AUTH + EVENT_URL;
+    private final EventServiceImpl eventService;
 
     @Autowired
     public EventController(EventServiceImpl eventService) {
         this.eventService = eventService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = NO_AUTH_EVENT_URL + "/{id}")
     public ResponseEntity<Object> getEventById(@PathVariable UUID id) {
         try {
-            EventDTO event = eventService.getEventById(id);
-            if (event != null) {
-                return ResponseEntity.ok(event);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+            return eventService.getEventById(id)
+                    .<ResponseEntity<Object>>map(eventDTO -> ResponseEntity.ok().body(eventDTO))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Invalid UUID format");
         }
     }
-
-    @GetMapping("/today")
+    @GetMapping(value = NO_AUTH_EVENT_URL + "/today")
     public ResponseEntity<List<EventTitleDTO>> getTodayEvents() {
-        return ResponseEntity.ok().body(eventService.getTodayEvents());
+        return ResponseEntity.ok().body(eventService.getTodayIncomingEvents());
     }
+
 }
 

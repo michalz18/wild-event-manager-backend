@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EventRepository extends JpaRepository<Event, UUID> {
-    List<Event> findAllByAcceptedTrueAndStartsAtBetween(LocalDateTime now, LocalDateTime endOfDay);
+    List<Event> findAllByAcceptedTrueAndStartsAtBetweenOrderByStartsAtAsc(LocalDateTime now, LocalDateTime endOfDay);
 }
