@@ -1,8 +1,8 @@
 package com.wildevent.WildEventMenager.event.service;
 
 import com.wildevent.WildEventMenager.event.model.Event;
-import com.wildevent.WildEventMenager.event.model.EventDTO;
-import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
@@ -36,7 +36,7 @@ public class EventServiceImpl implements EventService {
     public List<EventTitleDTO> getTodayIncomingEvents() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
-        List<Event> todayEvents = eventRepository.findAllByAcceptedTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
+        List<Event> todayEvents = eventRepository.findAllByOpenToPublicIsTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
         return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
     }
 }

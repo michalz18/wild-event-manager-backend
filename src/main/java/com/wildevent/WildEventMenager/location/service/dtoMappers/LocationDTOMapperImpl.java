@@ -1,7 +1,6 @@
 package com.wildevent.WildEventMenager.location.service.dtoMappers;
 
-import com.wildevent.WildEventMenager.event.model.Event;
-import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.LocationDTO;

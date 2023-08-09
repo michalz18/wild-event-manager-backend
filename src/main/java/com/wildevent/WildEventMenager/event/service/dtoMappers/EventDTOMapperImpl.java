@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.event.service.dtoMappers;
 
 import com.wildevent.WildEventMenager.event.model.Event;
-import com.wildevent.WildEventMenager.event.model.EventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import org.springframework.stereotype.Service;
 
 @Service

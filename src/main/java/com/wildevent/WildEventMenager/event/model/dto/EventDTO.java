@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.event.model;
+package com.wildevent.WildEventMenager.event.model.dto;
 
 import java.time.LocalDateTime;
 

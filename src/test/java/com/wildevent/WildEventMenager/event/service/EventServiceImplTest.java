@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.event.service;
 
 import com.wildevent.WildEventMenager.event.model.Event;
-import com.wildevent.WildEventMenager.event.model.EventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
