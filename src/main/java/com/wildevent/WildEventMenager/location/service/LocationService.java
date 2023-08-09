@@ -1,9 +1,9 @@
 package com.wildevent.WildEventMenager.location.service;
 
-import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import com.wildevent.WildEventMenager.location.model.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
 
 import java.util.Optional;
 import java.util.UUID;

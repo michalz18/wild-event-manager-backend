@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.location.controller;
 
-import com.wildevent.WildEventMenager.location.model.LocationDTO;
-import com.wildevent.WildEventMenager.location.model.LocationPointDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import org.springframework.beans.factory.annotation.Autowired;
