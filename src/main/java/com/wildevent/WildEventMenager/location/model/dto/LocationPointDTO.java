@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.location.model;
+package com.wildevent.WildEventMenager.location.model.dto;
 
 import java.util.UUID;
 

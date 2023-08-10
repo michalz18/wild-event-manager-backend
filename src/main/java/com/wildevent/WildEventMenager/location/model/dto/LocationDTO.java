@@ -1,6 +1,6 @@
-package com.wildevent.WildEventMenager.location.model;
+package com.wildevent.WildEventMenager.location.model.dto;
 
-import com.wildevent.WildEventMenager.event.model.EventTitleDTO;
+import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 
 import java.util.List;
 import java.util.UUID;
