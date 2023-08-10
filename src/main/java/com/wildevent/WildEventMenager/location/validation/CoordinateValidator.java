@@ -1,13 +1,13 @@
 package com.wildevent.WildEventMenager.location.validation;
 
-import com.wildevent.WildEventMenager.location.model.Coordinate;
+import com.wildevent.WildEventMenager.location.model.dto.CoordinateDTO;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-class CoordinateValidator implements ConstraintValidator<ValidCoordinate, Coordinate> {
+class CoordinateValidator implements ConstraintValidator<ValidCoordinate, CoordinateDTO> {
 
     @Override
-    public boolean isValid(Coordinate coordinate, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(CoordinateDTO coordinate, ConstraintValidatorContext constraintValidatorContext) {
         return isAPercentage(coordinate.getCoordinateY()) && isAPercentage(coordinate.getCoordinateX());
     }
 

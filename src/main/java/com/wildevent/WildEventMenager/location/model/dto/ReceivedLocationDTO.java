@@ -1,6 +1,5 @@
 package com.wildevent.WildEventMenager.location.model.dto;
 
-import com.wildevent.WildEventMenager.location.model.Coordinate;
 import com.wildevent.WildEventMenager.location.validation.ValidCoordinate;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,6 +16,6 @@ public class ReceivedLocationDTO {
     private String description;
     @NotNull
     @ValidCoordinate
-    private Coordinate coordinate;
+    private CoordinateDTO coordinate;
     private List<String> wildUserIds;
 }
