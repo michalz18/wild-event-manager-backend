@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -42,4 +43,11 @@ public class LocationServiceImpl implements LocationService {
                         .map(locationDTOMapper::getLocationDtoFromLocation);
     }
 
+    @Override
+    public List<LocationDTO> getAllLocations() {
+        List<Location> locations = locationRepository.findAll();
+        return locations.stream()
+                .map(locationDTOMapper::getLocationDtoFromLocation)
+                .collect(Collectors.toList());
+    }
 }
