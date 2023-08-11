@@ -1,6 +1,5 @@
 package com.wildevent.WildEventMenager.user;
 
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,6 +18,6 @@ public class ReceivedWildUserDTO {
     private String phone;
     @NotNull
     private boolean active;
-    @ManyToMany
     private List<String> locationIds;
+    private List<String> roleIds;
 }
