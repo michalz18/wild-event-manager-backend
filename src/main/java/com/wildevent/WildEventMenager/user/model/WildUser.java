@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.user;
+package com.wildevent.WildEventMenager.user.model;
 
 import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.location.model.Location;
@@ -8,11 +8,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
+@Setter
+@Getter
 @Entity
 public class WildUser {
 

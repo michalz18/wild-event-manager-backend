@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.location.model;
 
 import com.wildevent.WildEventMenager.event.model.Event;
-import com.wildevent.WildEventMenager.user.WildUser;
+import com.wildevent.WildEventMenager.user.model.WildUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

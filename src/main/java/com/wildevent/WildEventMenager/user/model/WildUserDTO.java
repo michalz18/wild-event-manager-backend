@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.user;
+package com.wildevent.WildEventMenager.user.model;
 
 
 import java.util.List;
