@@ -15,9 +15,7 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     public String sendSimpleMail(EmailDetails details) {
-
         try {
-
             SimpleMailMessage mailMessage
                     = new SimpleMailMessage();
 
