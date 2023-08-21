@@ -1,5 +1,6 @@
 package com.wildevent.WildEventMenager.event.controller;
 
+import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
 import com.wildevent.WildEventMenager.event.service.EventServiceImpl;
@@ -7,12 +8,16 @@ import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
@@ -37,6 +42,18 @@ public class EventController {
             return ResponseEntity.badRequest().body("Invalid UUID format");
         }
     }
+
+    @GetMapping(value = EVENT_MANAGEMENT_EVENT_URL)
+    public ResponseEntity<List<EventDTO>> getAllAcceptedEvents() {
+        try {
+            List<EventDTO> events = eventService.getAllAcceptedEvents();
+            return ResponseEntity.ok().body(events);
+        } catch (DataAccessException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
+        }
+    }
+
+
     @GetMapping(value = NO_AUTH_EVENT_URL + "/today")
     public ResponseEntity<List<EventTitleDTO>> getTodayEvents() {
         return ResponseEntity.ok().body(eventService.getTodayIncomingEvents());

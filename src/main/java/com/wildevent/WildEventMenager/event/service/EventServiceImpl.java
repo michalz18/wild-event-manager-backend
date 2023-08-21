@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -38,5 +39,11 @@ public class EventServiceImpl implements EventService {
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         List<Event> todayEvents = eventRepository.findAllByOpenToPublicIsTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
         return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
+    }
+
+    public List<EventDTO> getAllAcceptedEvents() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream().map(eventDTOMapper::getEventDtoFromEvent).collect(Collectors.toList());
+
     }
 }
