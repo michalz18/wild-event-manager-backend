@@ -28,5 +28,20 @@ class WildUserServiceImplTest {
     public WildUserServiceImplTest() {
         MockitoAnnotations.openMocks(this);
     }
+    @Test
+    void testDeactivateUserShouldReturnTrueWhenUserExists() {
+        UUID userId = UUID.randomUUID();
+        WildUser wildUser = mock(WildUser.class);
+        List<Event> events = Collections.emptyList();
+        when(wildUser.getEventOrganized()).thenReturn(events);
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(wildUser));
+
+        boolean result = wildUserService.deactivateUser(userId);
+
+        assertTrue(result);
+        Mockito.verify(wildUser).setActive(false);
+        Mockito.verify(wildUserRepository).save(wildUser);
+    }
+
 
 }
