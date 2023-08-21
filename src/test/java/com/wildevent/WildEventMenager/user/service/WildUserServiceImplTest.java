@@ -3,7 +3,6 @@ package com.wildevent.WildEventMenager.user.service;
 import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
