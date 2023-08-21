@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface LocationService {
     List<LocationPointDTO> getLocationPoints();
     Optional<LocationDTO> getLocationById(UUID id);
-
+    List<LocationDTO> getAllLocations();
 }
 
 

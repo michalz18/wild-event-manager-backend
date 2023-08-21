@@ -1,16 +1,21 @@
-package com.wildevent.WildEventMenager.user;
+package com.wildevent.WildEventMenager.user.model;
 
 import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.location.model.Location;
+import com.wildevent.WildEventMenager.role.model.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
-
+@Setter
+@Getter
 @Entity
 public class WildUser {
 
@@ -28,7 +33,9 @@ public class WildUser {
     private String phone;
     @NotNull
     private boolean active;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Location> location;
     @ManyToMany(mappedBy = "organizer")
     private List<Event> eventOrganized;

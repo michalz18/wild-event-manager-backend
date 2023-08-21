@@ -1,5 +1,5 @@
 INSERT INTO wild_user (id, name, phone, email, active)
-VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'John Doe', '1234567890', 'john@example.com', 1),
+VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Super Admin', '1234567890', 'john@example.com', 1),
        ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Jane Smith', '9876543210', 'jane@example.com', 1),
        ('7638419a-7a9f-4dca-a9ba-e1a5f0ebef62', 'Bob Johnson', '5555555555', 'bob@example.com', 1),
        ('e7073c8f-f5f8-4e24-83c1-d86abdedcfda', 'Alice Brown', '1112223333', 'alice@example.com', 1),
@@ -72,3 +72,13 @@ INSERT INTO event_organizer (event_organized_id, organizer_id) VALUES
         ('10fc437e-0b4f-4c1e-8a5f-1e13d2b232eb', '5a00d3f5-1265-41b3-a6e2-07053bdf5e72'), -- Katie Snow to Zebra painting
         ('c7946d57-2c27-4bc7-9f34-0217cd9b934a', 'a8d99b2b-d7c1-47c3-92fe-11f55e3c24ef'), -- Adam Stone to Jungle Trek
         ('4be3a159-82eb-4c1e-86b7-083cd63e2099', 'a8d99b2b-d7c1-47c3-92fe-11f55e3c24ef'); -- Adam Stone to Feathered Spectacle
+INSERT INTO role (id, name) VALUES
+        ('7b75ac6f-5c91-4f4d-b6c2-694b71f63215', 'MY-EVENTS'),
+        ('ddb98ed3-0765-4c70-9d02-2be7d18d86d2', 'EVENT-MANAGEMENT'),
+        ('e8f461a2-82c4-4d1c-9c0b-aa61f1b3c786', 'MAP-CONFIGURATION'),
+        ('3a9c8e47-ea25-4322-9d7f-b0f48c349ce5', 'EMPLOYEE-MANAGEMENT');
+INSERT INTO wild_user_role (role_id, wild_user_id) VALUES
+        ('7b75ac6f-5c91-4f4d-b6c2-694b71f63215','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
+        ('ddb98ed3-0765-4c70-9d02-2be7d18d86d2','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
+        ('e8f461a2-82c4-4d1c-9c0b-aa61f1b3c786','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
+        ('3a9c8e47-ea25-4322-9d7f-b0f48c349ce5','7c9e6679-7425-40de-944b-e07fc1f90ae7');
