@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class RoleController {
-
     private final static String ROLE_URL = "/roles";
     private final static String AUTH_ROLES_URL = AccessUrlProvider.AUTH + ROLE_URL;
     private final RoleService roleService;
@@ -22,7 +21,6 @@ public class RoleController {
     public RoleController(RoleService roleService) {
         this.roleService = roleService;
     }
-
     @GetMapping(value = AUTH_ROLES_URL)
     public ResponseEntity<List<Role>> getAllRoles() {
         return ResponseEntity.ok().body(roleService.getAllRoles());

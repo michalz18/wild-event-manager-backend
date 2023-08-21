@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.user;
+package com.wildevent.WildEventMenager.user.service.dtoMapper;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
