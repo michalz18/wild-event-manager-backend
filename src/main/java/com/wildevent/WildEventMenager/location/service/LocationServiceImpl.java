@@ -50,4 +50,12 @@ public class LocationServiceImpl implements LocationService {
                 .map(locationDTOMapper::getLocationDtoFromLocation)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Location> mapLocationsFromIds(List<String> locationIds) {
+        return locationIds.stream()
+                .map(UUID::fromString)
+                .flatMap(uuid -> locationRepository.findById(uuid).stream())
+                .collect(Collectors.toList());
+    }
 }

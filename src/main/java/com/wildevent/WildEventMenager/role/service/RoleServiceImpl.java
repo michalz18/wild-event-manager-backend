@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService{
@@ -20,5 +23,12 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+    @Override
+    public Set<Role> mapRolesFromIds(Set<String> roleIds) {
+        return roleIds.stream()
+                .map(UUID::fromString)
+                .flatMap(uuid -> roleRepository.findById(uuid).stream())
+                .collect(Collectors.toSet());
     }
 }

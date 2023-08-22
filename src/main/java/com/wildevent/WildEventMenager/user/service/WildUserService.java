@@ -11,6 +11,6 @@ import java.util.UUID;
 @Service
 public interface WildUserService {
     List<WildUserDTO> getAllActiveUsers();
-    WildUserDTO createUser(ReceivedWildUserDTO userDTO);
+    boolean createUser(ReceivedWildUserDTO userDTO);
     boolean deactivateUser(UUID userId);
 }

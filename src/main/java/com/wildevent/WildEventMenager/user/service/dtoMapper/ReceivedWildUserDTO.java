@@ -19,8 +19,6 @@ public class ReceivedWildUserDTO {
     private String email;
     @Pattern(regexp = "^\\d{9}$", message = "Invalid phone number format")
     private String phone;
-    @NotNull
-    private boolean active;
     private List<String> locationIds;
     private Set<String> roleIds;
 }

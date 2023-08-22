@@ -8,12 +8,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
 @Setter
 @Getter
 @Entity
@@ -39,4 +39,5 @@ public class WildUser {
     private List<Location> location;
     @ManyToMany(mappedBy = "organizer")
     private List<Event> eventOrganized;
+
 }

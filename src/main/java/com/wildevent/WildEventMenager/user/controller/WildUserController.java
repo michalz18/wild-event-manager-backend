@@ -29,9 +29,13 @@ public class WildUserController {
     }
 
     @PostMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL)
-    public @ResponseBody ResponseEntity<WildUserDTO> addUser(@RequestBody ReceivedWildUserDTO userDTO) {
-        WildUserDTO createdUser = wildUserService.createUser(userDTO);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    public ResponseEntity<String> addUser(@RequestBody ReceivedWildUserDTO userDTO) {
+        boolean createdUser = wildUserService.createUser(userDTO);
+        if (createdUser) {
+            return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Failed to create user", HttpStatus.BAD_REQUEST);
+        }
     }
     @DeleteMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/{userId}")
     public ResponseEntity<String> deactivateUser(@PathVariable UUID userId) {
