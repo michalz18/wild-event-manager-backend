@@ -4,9 +4,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
+@Data
 public class ReceivedWildUserDTO {
     @NotNull
     @Size(min = 3, max = 40)
@@ -19,5 +22,5 @@ public class ReceivedWildUserDTO {
     @NotNull
     private boolean active;
     private List<String> locationIds;
-    private List<String> roleIds;
+    private Set<String> roleIds;
 }
