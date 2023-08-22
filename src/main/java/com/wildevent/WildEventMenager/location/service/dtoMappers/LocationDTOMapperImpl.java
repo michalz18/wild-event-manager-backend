@@ -4,6 +4,7 @@ import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,14 @@ public class LocationDTOMapperImpl implements LocationDTOMapper {
                 location.getTitle(),
                 location.getDescription(),
                 events
+        );
+    }
+
+    @Override
+    public LocationIdTitleDTO getLocationIdTitleDTO(Location location) {
+        return new LocationIdTitleDTO(
+                location.getId(),
+                location.getTitle()
         );
     }
 }

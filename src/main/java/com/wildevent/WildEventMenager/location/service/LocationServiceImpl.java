@@ -1,8 +1,9 @@
 package com.wildevent.WildEventMenager.location.service;
 
 import com.wildevent.WildEventMenager.location.model.Location;
-import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.repository.LocationRepository;
 import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationDTOMapper;
 import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationPointDTOMapper;
@@ -40,14 +41,14 @@ public class LocationServiceImpl implements LocationService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         return locationRepository.findLocationWithEventsBetweenDates(id, now, endOfDay)
-                        .map(locationDTOMapper::getLocationDtoFromLocation);
+                .map(locationDTOMapper::getLocationDtoFromLocation);
     }
 
     @Override
-    public List<LocationDTO> getAllLocations() {
+    public List<LocationIdTitleDTO> getAllLocations() {
         List<Location> locations = locationRepository.findAll();
         return locations.stream()
-                .map(locationDTOMapper::getLocationDtoFromLocation)
+                .map(locationDTOMapper::getLocationIdTitleDTO)
                 .collect(Collectors.toList());
     }
 }
