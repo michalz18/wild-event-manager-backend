@@ -37,6 +37,16 @@ public class WildUserController {
             return new ResponseEntity<>("Failed to create user", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable UUID userId, @RequestBody ReceivedWildUserDTO userDTO) {
+        try {
+            wildUserService.updateUser(userId, userDTO);
+            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/{userId}")
     public ResponseEntity<String> deactivateUser(@PathVariable UUID userId) {
         try {

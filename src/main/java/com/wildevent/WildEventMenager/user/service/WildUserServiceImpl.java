@@ -71,6 +71,27 @@ public class WildUserServiceImpl implements WildUserService {
     }
 
     @Override
+    public void updateUser(UUID userId, ReceivedWildUserDTO userDTO) {
+        Optional<WildUser> userOptional = wildUserRepository.findById(userId);
+
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("User not found.");
+        }
+
+        List<Location> locations = locationService.mapLocationsFromIds(userDTO.getLocationIds());
+        Set<Role> roles = roleService.mapRolesFromIds(userDTO.getRoleIds());
+
+        WildUser user = userOptional.get();
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhone(userDTO.getPhone());
+        user.setRole(roles);
+        user.setLocation(locations);
+
+        wildUserRepository.save(user);
+    }
+
+    @Override
     public boolean deactivateUser(UUID userId) {
         Optional<WildUser> userOptional = wildUserRepository.findById(userId);
         if (userOptional.isPresent()) {

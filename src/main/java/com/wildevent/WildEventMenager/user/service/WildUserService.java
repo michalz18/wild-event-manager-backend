@@ -12,4 +12,5 @@ public interface WildUserService {
     List<WildUserDTO> getAllActiveUsers();
     boolean createUser(ReceivedWildUserDTO userDTO);
     boolean deactivateUser(UUID userId);
+    void updateUser(UUID userId, ReceivedWildUserDTO userDTO);
 }
