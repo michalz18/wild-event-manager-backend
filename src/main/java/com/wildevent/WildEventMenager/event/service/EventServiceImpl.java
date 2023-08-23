@@ -6,7 +6,6 @@ import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
-import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.repository.LocationRepository;
 import com.wildevent.WildEventMenager.user.model.WildUser;
@@ -23,14 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
-    private final EventTitleDTOMapper eventTitleDTOMapper;
     private final EventDTOMapper eventDTOMapper;
     private final LocationRepository locationRepository;
     private final WildUserRepository wildUserRepository;
 
-    public EventServiceImpl(EventRepository eventRepository, EventTitleDTOMapper eventTitleDTOMapper, EventDTOMapper eventDTOMapper, LocationRepository locationRepository, WildUserRepository wildUserRepository) {
+    public EventServiceImpl(EventRepository eventRepository, EventDTOMapper eventDTOMapper, LocationRepository locationRepository, WildUserRepository wildUserRepository) {
         this.eventRepository = eventRepository;
-        this.eventTitleDTOMapper = eventTitleDTOMapper;
         this.eventDTOMapper = eventDTOMapper;
         this.locationRepository = locationRepository;
         this.wildUserRepository = wildUserRepository;
@@ -47,7 +44,7 @@ public class EventServiceImpl implements EventService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         List<Event> todayEvents = eventRepository.findAllByOpenToPublicIsTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
-        return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
+        return eventDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
     }
 
     public List<EventDTO> getAllAcceptedEvents() {

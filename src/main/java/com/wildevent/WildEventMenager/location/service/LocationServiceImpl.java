@@ -6,7 +6,6 @@ import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.repository.LocationRepository;
 import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationDTOMapper;
-import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationPointDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,19 +20,17 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
     private final LocationDTOMapper locationDTOMapper;
-    private final LocationPointDTOMapper locationPointDtoMapper;
 
     @Autowired
-    public LocationServiceImpl(LocationRepository locationRepository, LocationDTOMapper locationDTOMapper, LocationPointDTOMapper locationPointDtoMapper) {
+    public LocationServiceImpl(LocationRepository locationRepository, LocationDTOMapper locationDTOMapper) {
         this.locationRepository = locationRepository;
         this.locationDTOMapper = locationDTOMapper;
-        this.locationPointDtoMapper = locationPointDtoMapper;
     }
 
     @Override
     public List<LocationPointDTO> getLocationPoints() {
         List<Location> locations = locationRepository.findAll();
-        return locationPointDtoMapper.getLocationPointsDtoFromLocation(locations);
+        return locationDTOMapper.getLocationPointsDtoFromLocation(locations);
     }
 
     @Override
