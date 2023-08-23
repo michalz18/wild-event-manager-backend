@@ -8,8 +8,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,4 +40,19 @@ class WildUserControllerTest {
                 .andExpect(status().isCreated());
 
     }
+
+    @Test
+    void shouldUpdateUser() throws Exception {
+        UUID userId = UUID.randomUUID();
+        String userJson = "{\"name\":\"John\",\"email\":\"john@example.com\",\"phone\":\"123456789\",\"roleIds\":[\"role1\"]}";
+
+        String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = "/staff-management/staff/";
+        mockMvc.perform(put(STAFF_MANAGEMENT_ACTIVE_STAFF_URL + userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userJson))
+                .andExpect(status().isOk());
+
+        verify(wildUserService, times(1)).updateUser(eq(userId), any(ReceivedWildUserDTO.class));
+    }
+
 }

@@ -41,31 +41,6 @@ class WildUserServiceImplTest {
     public WildUserServiceImplTest() {
         MockitoAnnotations.openMocks(this);
     }
-    @Test
-    void testDeactivateUserShouldReturnTrueWhenUserExists() {
-        UUID userId = UUID.randomUUID();
-        WildUser wildUser = mock(WildUser.class);
-        List<Event> events = Collections.emptyList();
-        when(wildUser.getEventOrganized()).thenReturn(events);
-        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(wildUser));
-
-        boolean result = wildUserService.deactivateUser(userId);
-
-        assertTrue(result);
-        verify(wildUser).setActive(false);
-        verify(wildUserRepository).save(wildUser);
-    }
-
-    @Test
-    public void testDeactivateUserShouldReturnFalseIfUserNotFound() {
-        UUID userId = UUID.randomUUID();
-        when(wildUserRepository.findById(userId)).thenReturn(Optional.empty());
-
-        boolean result = wildUserService.deactivateUser(userId);
-
-        assertFalse(result);
-        verify(wildUserRepository, never()).save(any());
-    }
 
     @Test
     public void testCreateUser() {
@@ -91,5 +66,69 @@ class WildUserServiceImplTest {
         assertTrue(result);
         verify(emailSendingService, times(1)).sendWelcomeEmail(anyString(), anyString());
         verify(wildUserRepository, times(1)).save(any(WildUser.class));
+    }
+
+    @Test
+    void testShouldUpdateUser() {
+        UUID userId = UUID.randomUUID();
+        WildUser existingUser = new WildUser();
+        ReceivedWildUserDTO dto = new ReceivedWildUserDTO();
+
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+
+        wildUserService.updateUser(userId, dto);
+
+        verify(wildUserRepository).save(existingUser);
+    }
+
+    @Test
+    void testShouldUpdateUserRoleAndLocation() {
+        UUID userId = UUID.randomUUID();
+        WildUser existingUser = new WildUser();
+        ReceivedWildUserDTO dto = new ReceivedWildUserDTO();
+        dto.setRoleIds(Collections.singleton("roleId"));
+        dto.setLocationIds(Collections.singletonList("locationId"));
+
+        Role role = new Role();
+        Location location = new Location();
+        Set<Role> newRoles = Collections.singleton(role);
+        List<Location> newLocations = Collections.singletonList(location);
+
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+        when(roleService.mapRolesFromIds(Collections.singleton("roleId"))).thenReturn(newRoles);
+        when(locationService.mapLocationsFromIds(Collections.singletonList("locationId"))).thenReturn(newLocations);
+
+        wildUserService.updateUser(userId, dto);
+
+        assertEquals(newRoles, existingUser.getRole());
+        assertEquals(newLocations, existingUser.getLocation());
+    }
+
+
+
+    @Test
+    void testDeactivateUserShouldReturnTrueWhenUserExists() {
+        UUID userId = UUID.randomUUID();
+        WildUser wildUser = mock(WildUser.class);
+        List<Event> events = Collections.emptyList();
+        when(wildUser.getEventOrganized()).thenReturn(events);
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(wildUser));
+
+        boolean result = wildUserService.deactivateUser(userId);
+
+        assertTrue(result);
+        verify(wildUser).setActive(false);
+        verify(wildUserRepository).save(wildUser);
+    }
+
+    @Test
+    public void testDeactivateUserShouldReturnFalseIfUserNotFound() {
+        UUID userId = UUID.randomUUID();
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.empty());
+
+        boolean result = wildUserService.deactivateUser(userId);
+
+        assertFalse(result);
+        verify(wildUserRepository, never()).save(any());
     }
 }
