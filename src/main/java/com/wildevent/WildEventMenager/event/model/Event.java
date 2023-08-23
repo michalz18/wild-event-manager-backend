@@ -42,4 +42,16 @@ public class Event {
     private boolean openToPublic;
     @ManyToMany
     private List<WildUser> organizer;
+
+    public Event(String title, String description, LocalDateTime startsAt,
+                 LocalDateTime endsAt, Location location, boolean openToPublic,
+                 List<WildUser> organizer) {
+        this.title = title;
+        this.description = description;
+        this.startsAt = startsAt;
+        this.endsAt = endsAt;
+        this.location = location;
+        this.openToPublic = openToPublic;
+        this.organizer = organizer;
+    }
 }

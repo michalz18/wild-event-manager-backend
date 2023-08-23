@@ -68,8 +68,11 @@ public class EventController {
                     .toList();
             return ResponseEntity.badRequest().body(errors);
         } else {
-            //dodatkowe operacje na obiekcie dto
-            // TODO
+            try {
+                eventService.addEvent(dto);
+            } catch (Error e) {
+                e.printStackTrace();
+            }
             return ResponseEntity.ok().build();
         }
     }

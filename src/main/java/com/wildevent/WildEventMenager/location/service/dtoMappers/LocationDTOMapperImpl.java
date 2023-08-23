@@ -1,26 +1,26 @@
 package com.wildevent.WildEventMenager.location.service.dtoMappers;
 
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
-import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
+import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class LocationDTOMapperImpl implements LocationDTOMapper {
+    private final EventDTOMapper eventDTOMapper;
 
-    private final EventTitleDTOMapper eventTitleDTOMapper;
-
-    public LocationDTOMapperImpl(EventTitleDTOMapper eventTitleDTOMapper) {
-        this.eventTitleDTOMapper = eventTitleDTOMapper;
+    public LocationDTOMapperImpl(EventDTOMapper eventDTOMapper) {
+        this.eventDTOMapper = eventDTOMapper;
     }
 
     @Override
     public LocationDTO getLocationDtoFromLocation(Location location) {
-        List<EventTitleDTO> events = eventTitleDTOMapper.getEventTitlesDTOFromEvent(location.getEvents());
+        List<EventTitleDTO> events = eventDTOMapper.getEventTitlesDTOFromEvent(location.getEvents());
         return new LocationDTO(
                 location.getId(),
                 location.getTitle(),
@@ -35,5 +35,20 @@ public class LocationDTOMapperImpl implements LocationDTOMapper {
                 location.getId(),
                 location.getTitle()
         );
+    }
+
+    @Override
+    public List<LocationPointDTO> getLocationPointsDtoFromLocation(List<Location> locations) {
+        return locations
+                .stream()
+                .map(this::getLocationPointDtoFromLocation)
+                .toList();
+    }
+
+    private LocationPointDTO getLocationPointDtoFromLocation(Location location) {
+        return new LocationPointDTO(
+                location.getId(),
+                location.getCoordinate().getCoordinateX(),
+                location.getCoordinate().getCoordinateY());
     }
 }
