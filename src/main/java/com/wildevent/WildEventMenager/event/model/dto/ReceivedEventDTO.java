@@ -19,7 +19,6 @@ public class ReceivedEventDTO {
     @Column(length = 1000)
     @Size(min = 3, max = 1000)
     private String description;
-    @NotNull
     @ValidDateRange
     private DateRange dateRange;
     @NotNull
