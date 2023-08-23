@@ -1,9 +1,6 @@
 package com.wildevent.WildEventMenager.user.service.dtoMapper;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.List;
@@ -17,8 +14,9 @@ public class ReceivedWildUserDTO {
     @NotNull
     @Email
     private String email;
-    @Pattern(regexp = "^\\d{9}$", message = "Invalid phone number format")
+    @Pattern(regexp = "^\\d{9}$", message = "Invalid phone number format!")
     private String phone;
     private List<String> locationIds;
+    @NotEmpty(message = "At least one role must be assigned!")
     private Set<String> roleIds;
 }
