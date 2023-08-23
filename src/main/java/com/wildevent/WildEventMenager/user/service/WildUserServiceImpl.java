@@ -61,7 +61,15 @@ public class WildUserServiceImpl implements WildUserService {
         List<Location> locations = locationService.mapLocationsFromIds(userDTO.getLocationIds());
         Set<Role> roles = roleService.mapRolesFromIds(userDTO.getRoleIds());
 
-        WildUser wildUser = mapToWildUser(userDTO, generatedPassword, locations, roles);
+        WildUser wildUser = WildUser.builder()
+                .name(userDTO.getName())
+                .email(userDTO.getEmail())
+                .phone(userDTO.getPhone())
+                .password(generatedPassword)
+                .active(true)
+                .location(locations)
+                .role(roles)
+                .build();
 
         wildUserRepository.save(wildUser);
 
@@ -72,22 +80,8 @@ public class WildUserServiceImpl implements WildUserService {
 
     @Override
     public void updateUser(UUID userId, ReceivedWildUserDTO userDTO) {
-        Optional<WildUser> userOptional = wildUserRepository.findById(userId);
-
-        if (userOptional.isEmpty()) {
-            throw new RuntimeException("User not found.");
-        }
-
-        List<Location> locations = locationService.mapLocationsFromIds(userDTO.getLocationIds());
-        Set<Role> roles = roleService.mapRolesFromIds(userDTO.getRoleIds());
-
-        WildUser user = userOptional.get();
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
-        user.setPhone(userDTO.getPhone());
-        user.setRole(roles);
-        user.setLocation(locations);
-
+        WildUser user = getUserById(userId);
+        mapUserDetails(user, userDTO);
         wildUserRepository.save(user);
     }
 
@@ -114,17 +108,20 @@ public class WildUserServiceImpl implements WildUserService {
         return false;
     }
 
-    private WildUser mapToWildUser(ReceivedWildUserDTO userDTO, String generatedPassword, List<Location> locations, Set<Role> roles) {
-        WildUser wildUser = new WildUser();
-        wildUser.setName(userDTO.getName());
-        wildUser.setEmail(userDTO.getEmail());
-        wildUser.setPhone(userDTO.getPhone());
-        wildUser.setPassword(generatedPassword);
-        wildUser.setActive(true);
-        wildUser.setLocation(locations);
-        wildUser.setRole(roles);
-        return wildUser;
+    private WildUser getUserById(UUID userId) {
+        return wildUserRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found."));
     }
 
+    private void mapUserDetails(WildUser user, ReceivedWildUserDTO userDTO) {
+        List<Location> locations = locationService.mapLocationsFromIds(userDTO.getLocationIds());
+        Set<Role> roles = roleService.mapRolesFromIds(userDTO.getRoleIds());
+
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhone(userDTO.getPhone());
+        user.setRole(roles);
+        user.setLocation(locations);
+    }
 }
 

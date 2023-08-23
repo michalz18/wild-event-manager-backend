@@ -16,7 +16,10 @@ import java.util.UUID;
 
 @Setter
 @Getter
+@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class WildUser {
 
     @Id
