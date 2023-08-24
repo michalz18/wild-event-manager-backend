@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
@@ -76,6 +77,17 @@ public class EventController {
             return ResponseEntity.ok().build();
         }
     }
+
+    @DeleteMapping( EVENT_MANAGEMENT_EVENT_URL + "/{id}")
+    public ResponseEntity<Object> deleteEvent(@PathVariable UUID id) {
+        try {
+            eventService.deleteEventById(id);
+            return ResponseEntity.ok().body("Event deleted successfully");
+        } catch (NoSuchElementException error) {
+            return ResponseEntity.badRequest().body("An error occurred: " + error.getMessage());
+        }
+    }
+
 
 }
 
