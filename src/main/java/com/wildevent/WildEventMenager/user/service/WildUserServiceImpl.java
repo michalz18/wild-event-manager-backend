@@ -97,6 +97,7 @@ public class WildUserServiceImpl implements WildUserService {
         wildUserRepository.deactivateUser(userId);
 
         List<Event> events = eventService.findAllEventsByOrganizer(userId);
+
         for (Event event : events) {
             event.getOrganizer().remove(user);
         }

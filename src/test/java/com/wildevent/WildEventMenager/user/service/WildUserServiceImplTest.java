@@ -1,13 +1,16 @@
 package com.wildevent.WildEventMenager.user.service;
 
 import com.wildevent.WildEventMenager.event.model.Event;
+import com.wildevent.WildEventMenager.event.service.EventService;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.role.service.RoleService;
 import com.wildevent.WildEventMenager.user.model.WildUser;
+import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
 import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.service.dtoMapper.UserDTOMapper;
 import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
 import com.wildevent.WildEventMenager.user.service.password.PasswordGeneratorService;
 import org.junit.jupiter.api.Test;
@@ -27,19 +30,59 @@ class WildUserServiceImplTest {
     WildUserRepository wildUserRepository;
     @Mock
     private PasswordGeneratorService passwordGeneratorService;
-
     @Mock
     private LocationService locationService;
-
     @Mock
     private RoleService roleService;
-
+    @Mock
+    private EventService eventService;
     @Mock
     private EmailSendingService emailSendingService;
+    @Mock
+    private UserDTOMapper userDTOMapper;
 
     public WildUserServiceImplTest() {
         MockitoAnnotations.openMocks(this);
     }
+
+    @Test
+    public void testGetAllActiveUsersReturnsOnlyActiveUsers() {
+        WildUser activeUser = new WildUser();
+        activeUser.setActive(true);
+
+        WildUser inactiveUser = new WildUser();
+        inactiveUser.setActive(false);
+
+        WildUserDTO activeUserDTO = userDTOMapper.getUserDtoFromWildUser(activeUser);
+        when(wildUserRepository.findAll()).thenReturn(List.of(activeUser, inactiveUser));
+        when(userDTOMapper.getUserDtoFromWildUser(activeUser)).thenReturn(activeUserDTO);
+
+        List<WildUserDTO> result = wildUserService.getAllActiveUsers();
+
+        assertEquals(1, result.size());
+        assertTrue(result.contains(activeUserDTO));
+    }
+
+    @Test
+    public void testGetAllActiveUsersReturnsAllActiveUsersWhenEveryoneIsActive() {
+        WildUser activeUser1 = new WildUser();
+        activeUser1.setActive(true);
+
+        WildUser activeUser2 = new WildUser();
+        activeUser2.setActive(true);
+
+        WildUserDTO activeUserDTO1 = userDTOMapper.getUserDtoFromWildUser(activeUser1);
+        WildUserDTO activeUserDTO2 = userDTOMapper.getUserDtoFromWildUser(activeUser2);
+
+        when(wildUserRepository.findAll()).thenReturn(List.of(activeUser1, activeUser2));
+        when(userDTOMapper.getUserDtoFromWildUser(activeUser1)).thenReturn(activeUserDTO1);
+        when(userDTOMapper.getUserDtoFromWildUser(activeUser2)).thenReturn(activeUserDTO2);
+
+        List<WildUserDTO> result = wildUserService.getAllActiveUsers();
+
+        assertEquals(2, result.size());
+    }
+
 
     @Test
     public void testCreateUser() {
@@ -103,26 +146,41 @@ class WildUserServiceImplTest {
         assertEquals(newLocations, existingUser.getLocation());
     }
 
-
-
     @Test
-    void testDeactivateUserShouldReturnTrueWhenUserExists() {
-        UUID userId = UUID.randomUUID();
-        WildUser wildUser = mock(WildUser.class);
-        List<Event> events = Collections.emptyList();
-        when(wildUser.getEventOrganized()).thenReturn(events);
-        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(wildUser));
+    void testDeactivateUserShouldDeactivateExistingUser() {
+        UUID id = UUID.randomUUID();
+        WildUser wildUser = new WildUser();
+        wildUser.setActive(true);
+        when(wildUserRepository.findById(id)).thenReturn(Optional.of(wildUser));
 
-        verify(wildUser).setActive(false);
-        verify(wildUserRepository).save(wildUser);
+        wildUserService.deactivateUser(id);
+
+        verify(wildUserRepository).deactivateUser(id);
+        verify(eventService).findAllEventsByOrganizer(id);
     }
 
     @Test
-    public void testDeactivateUserShouldReturnFalseIfUserNotFound() {
+    void testThrowExceptionWhenUserNotFound() {
         UUID userId = UUID.randomUUID();
         when(wildUserRepository.findById(userId)).thenReturn(Optional.empty());
 
+        assertThrows(RuntimeException.class, () -> wildUserService.deactivateUser(userId));
+    }
 
-        verify(wildUserRepository, never()).save(any());
+    @Test
+    void testDeactivateUserRemovesUserFromOrganizedEvents() {
+        UUID userId = UUID.randomUUID();
+        WildUser user = new WildUser();
+        user.setId(userId);
+        user.setActive(true);
+        Event event = new Event();
+        event.setOrganizer(new ArrayList<>(List.of(user)));
+
+        when(wildUserRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(eventService.findAllEventsByOrganizer(userId)).thenReturn(List.of(event));
+
+        wildUserService.deactivateUser(userId);
+
+        assertFalse(event.getOrganizer().contains(user));
     }
 }

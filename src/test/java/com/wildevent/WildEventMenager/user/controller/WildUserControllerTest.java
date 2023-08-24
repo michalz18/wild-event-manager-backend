@@ -1,5 +1,6 @@
 package com.wildevent.WildEventMenager.user.controller;
 
+import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.service.WildUserService;
 import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(WildUserController.class)
@@ -55,4 +57,28 @@ class WildUserControllerTest {
         verify(wildUserService, times(1)).updateUser(eq(userId), any(ReceivedWildUserDTO.class));
     }
 
+    @Test
+    public void testProperStatusAfterSuccessfulDeactivatingUser() throws Exception {
+        UUID userId = UUID.randomUUID();
+
+        doNothing().when(wildUserService).deactivateUser(userId);
+
+        String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = "/staff-management/staff/";
+        mockMvc.perform(put(STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/deactivate/" + userId))
+                .andExpect(status().isOk())
+                .andExpect(content().string("User deactivated successfully"));
+    }
+
+    @Test
+    public void testProperStatusAfterNotFindingSpecificUser() throws Exception {
+        UUID userId = UUID.randomUUID();
+        String errorMessage = "User not found";
+
+        doThrow(new RuntimeException(errorMessage)).when(wildUserService).deactivateUser(userId);
+
+        String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = "/staff-management/staff/";
+        mockMvc.perform(put(STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/deactivate/" + userId))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(errorMessage));
+    }
 }
