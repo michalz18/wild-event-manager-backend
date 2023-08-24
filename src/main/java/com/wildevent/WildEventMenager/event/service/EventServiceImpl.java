@@ -64,4 +64,8 @@ public class EventServiceImpl implements EventService {
 
         eventRepository.save(eventDTOMapper.getEventFormReceivedEventDTO(dto, location, organizerList));
     }
+
+    public void deleteEventById(UUID id) {
+        eventRepository.deleteById(id);
+    }
 }

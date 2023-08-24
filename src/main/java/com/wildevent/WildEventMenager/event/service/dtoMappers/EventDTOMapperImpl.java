@@ -16,6 +16,7 @@ public class EventDTOMapperImpl implements EventDTOMapper {
     @Override
     public EventDTO getEventDtoFromEvent(Event event) {
         return new EventDTO(
+                event.getId(),
                 event.getTitle(),
                 event.getDescription(),
                 event.getStartsAt(),
