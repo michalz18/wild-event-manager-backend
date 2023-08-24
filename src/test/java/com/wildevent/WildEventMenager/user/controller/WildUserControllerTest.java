@@ -1,6 +1,5 @@
 package com.wildevent.WildEventMenager.user.controller;
 
-import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.service.WildUserService;
 import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.junit.jupiter.api.Test;
