@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.user.service;
 
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
-import com.wildevent.WildEventMenager.user.service.dtoMapper.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface WildUserService {
     List<WildUserDTO> getAllActiveUsers();
     boolean createUser(ReceivedWildUserDTO userDTO);
-    boolean deactivateUser(UUID userId);
     void updateUser(UUID userId, ReceivedWildUserDTO userDTO);
+    void deactivateUser(UUID userId);
 }

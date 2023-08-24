@@ -39,4 +39,12 @@ public class EventServiceImpl implements EventService {
         List<Event> todayEvents = eventRepository.findAllByOpenToPublicIsTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
         return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
     }
+
+    @Override
+    public List<Event> findAllEventsByOrganizer(UUID userId) {
+        return eventRepository.findAll()
+                .stream()
+                .filter(event -> event.getOrganizer().stream().anyMatch(user -> user.getId().equals(userId)))
+                .toList();
+    }
 }

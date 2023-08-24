@@ -1,7 +1,7 @@
 package com.wildevent.WildEventMenager.user.controller;
 
 import com.wildevent.WildEventMenager.user.service.WildUserService;
-import com.wildevent.WildEventMenager.user.service.dtoMapper.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

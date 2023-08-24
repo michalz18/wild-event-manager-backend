@@ -1,6 +1,7 @@
 package com.wildevent.WildEventMenager.user.service;
 
 import com.wildevent.WildEventMenager.event.model.Event;
+import com.wildevent.WildEventMenager.event.service.EventService;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.role.model.Role;
@@ -8,13 +9,13 @@ import com.wildevent.WildEventMenager.role.service.RoleService;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
-import com.wildevent.WildEventMenager.user.service.dtoMapper.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import com.wildevent.WildEventMenager.user.service.dtoMapper.UserDTOMapper;
 import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
 import com.wildevent.WildEventMenager.user.service.password.PasswordGeneratorService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class WildUserServiceImpl implements WildUserService {
     private final PasswordGeneratorService passwordGeneratorService;
     private final LocationService locationService;
     private final RoleService roleService;
+    private final EventService eventService;
     private final EmailSendingService emailSendingService;
 
     @Autowired
@@ -35,13 +37,16 @@ public class WildUserServiceImpl implements WildUserService {
                     PasswordGeneratorService passwordGeneratorService,
                     LocationService locationService,
                     RoleService roleService,
+                    EventService eventService,
                     EmailSendingService emailSendingService
-            ) {
+            )
+    {
         this.wildUserRepository = wildUserRepository;
         this.userDTOMapper = userDTOMapper;
         this.passwordGeneratorService = passwordGeneratorService;
         this.locationService = locationService;
         this.roleService = roleService;
+        this.eventService = eventService;
         this.emailSendingService = emailSendingService;
     }
 
@@ -86,26 +91,15 @@ public class WildUserServiceImpl implements WildUserService {
     }
 
     @Override
-    public boolean deactivateUser(UUID userId) {
-        Optional<WildUser> userOptional = wildUserRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            WildUser user = userOptional.get();
-            user.setActive(false);
+    @Transactional
+    public void deactivateUser(UUID userId) {
+        WildUser user = getUserById(userId);
+        wildUserRepository.deactivateUser(userId);
 
-            for (Event event : user.getEventOrganized()) {
-                event.getOrganizer().remove(user);
-            }
-            user.setEventOrganized(new ArrayList<>());
-
-            for (Location location : user.getLocation()) {
-                location.getWildUser().remove(user);
-            }
-            user.setLocation(new ArrayList<>());
-
-            wildUserRepository.save(user);
-            return true;
+        List<Event> events = eventService.findAllEventsByOrganizer(userId);
+        for (Event event : events) {
+            event.getOrganizer().remove(user);
         }
-        return false;
     }
 
     private WildUser getUserById(UUID userId) {

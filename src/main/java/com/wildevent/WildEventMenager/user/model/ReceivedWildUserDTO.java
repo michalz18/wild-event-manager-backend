@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.user.service.dtoMapper;
+package com.wildevent.WildEventMenager.user.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

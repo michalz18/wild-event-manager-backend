@@ -3,7 +3,7 @@ package com.wildevent.WildEventMenager.user.controller;
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.service.WildUserService;
-import com.wildevent.WildEventMenager.user.service.dtoMapper.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +47,8 @@ public class WildUserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/{userId}")
+
+    @PutMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/deactivate/{userId}")
     public ResponseEntity<String> deactivateUser(@PathVariable UUID userId) {
         try {
             wildUserService.deactivateUser(userId);
@@ -56,4 +57,5 @@ public class WildUserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
 }

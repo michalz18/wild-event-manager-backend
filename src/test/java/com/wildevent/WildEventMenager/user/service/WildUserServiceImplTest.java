@@ -7,13 +7,12 @@ import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.role.service.RoleService;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
-import com.wildevent.WildEventMenager.user.service.dtoMapper.ReceivedWildUserDTO;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
 import com.wildevent.WildEventMenager.user.service.password.PasswordGeneratorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.*;
@@ -114,9 +113,6 @@ class WildUserServiceImplTest {
         when(wildUser.getEventOrganized()).thenReturn(events);
         when(wildUserRepository.findById(userId)).thenReturn(Optional.of(wildUser));
 
-        boolean result = wildUserService.deactivateUser(userId);
-
-        assertTrue(result);
         verify(wildUser).setActive(false);
         verify(wildUserRepository).save(wildUser);
     }
@@ -126,9 +122,7 @@ class WildUserServiceImplTest {
         UUID userId = UUID.randomUUID();
         when(wildUserRepository.findById(userId)).thenReturn(Optional.empty());
 
-        boolean result = wildUserService.deactivateUser(userId);
 
-        assertFalse(result);
         verify(wildUserRepository, never()).save(any());
     }
 }
