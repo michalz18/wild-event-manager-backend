@@ -19,7 +19,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public boolean sendSimpleMail(EmailDetails details) {
+    public void sendMail(EmailDetails details) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom(sender);
@@ -28,10 +28,8 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setSubject(details.getSubject());
 
             javaMailSender.send(mailMessage);
-            return true;
         } catch (Exception e) {
             logger.error("Error while Sending Mail", e);
-            return false;
         }
     }
 }

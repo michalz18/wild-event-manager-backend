@@ -19,7 +19,6 @@ import java.util.UUID;
 @Builder
 @Entity
 @NoArgsConstructor
-@ToString
 @AllArgsConstructor
 public class WildUser {
 

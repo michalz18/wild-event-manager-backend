@@ -18,14 +18,20 @@ public class WildUserController {
     private final static String ACTIVE_STAFF_URL = "/staff";
     private final static String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = AccessUrlProvider.STAFF_MANAGEMENT + ACTIVE_STAFF_URL;
     private final WildUserService wildUserService;
+
     @Autowired
     public WildUserController(WildUserService wildUserService) {
         this.wildUserService = wildUserService;
     }
 
     @GetMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL)
-    public List<WildUserDTO> getAllActiveUsers() {
-        return wildUserService.getAllActiveUsers();
+    public ResponseEntity<List<WildUserDTO>> getAllActiveUsers() {
+        try {
+            List<WildUserDTO> activeUsers = wildUserService.getAllActiveUsers();
+            return new ResponseEntity<>(activeUsers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL)
@@ -57,5 +63,4 @@ public class WildUserController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-
 }

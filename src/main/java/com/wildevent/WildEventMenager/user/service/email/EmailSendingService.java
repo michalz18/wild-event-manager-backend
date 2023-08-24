@@ -17,6 +17,6 @@ public class EmailSendingService {
                 "Your password: " + generatedPassword,
                 "Welcome to Wild Event Management!"
         );
-        emailService.sendSimpleMail(emailDetails);
+        emailService.sendMail(emailDetails);
     }
 }

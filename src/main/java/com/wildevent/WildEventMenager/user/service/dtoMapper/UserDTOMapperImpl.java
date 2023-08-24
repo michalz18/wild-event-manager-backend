@@ -7,6 +7,7 @@ import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class UserDTOMapperImpl implements UserDTOMapper {
     @Override

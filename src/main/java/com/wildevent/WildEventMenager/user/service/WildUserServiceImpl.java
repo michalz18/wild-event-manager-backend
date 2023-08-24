@@ -86,7 +86,7 @@ public class WildUserServiceImpl implements WildUserService {
     @Override
     public void updateUser(UUID userId, ReceivedWildUserDTO userDTO) {
         WildUser user = getUserById(userId);
-        mapUserDetails(user, userDTO);
+        mapReceivedUserDtoToWildUser(user, userDTO);
         wildUserRepository.save(user);
     }
 
@@ -108,7 +108,7 @@ public class WildUserServiceImpl implements WildUserService {
                 .orElseThrow(() -> new RuntimeException("User not found."));
     }
 
-    private void mapUserDetails(WildUser user, ReceivedWildUserDTO userDTO) {
+    private void mapReceivedUserDtoToWildUser(WildUser user, ReceivedWildUserDTO userDTO) {
         List<Location> locations = locationService.mapLocationsFromIds(userDTO.getLocationIds());
         Set<Role> roles = roleService.mapRolesFromIds(userDTO.getRoleIds());
 
