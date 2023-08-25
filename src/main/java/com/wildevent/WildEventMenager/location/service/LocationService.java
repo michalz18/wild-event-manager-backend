@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface LocationService {
     List<LocationPointDTO> getLocationPoints();
     Optional<LocationDTO> getLocationById(UUID id);
-    List<LocationDTO> getAllLocations();
+
     List<Location> mapLocationsFromIds(List<String> locationIds);
     List<LocationIdTitleDTO> getAllLocations();
 }

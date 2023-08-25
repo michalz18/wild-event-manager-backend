@@ -6,11 +6,11 @@ import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.role.service.RoleService;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
-import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import com.wildevent.WildEventMenager.user.service.dtoMapper.UserDTOMapper;
 import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
 import com.wildevent.WildEventMenager.user.service.password.PasswordGeneratorService;
@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class WildUserServiceImpl implements WildUserService {
@@ -40,8 +42,7 @@ public class WildUserServiceImpl implements WildUserService {
                     RoleService roleService,
                     EventService eventService,
                     EmailSendingService emailSendingService
-            )
-    {
+            ) {
         this.wildUserRepository = wildUserRepository;
         this.userDTOMapper = userDTOMapper;
         this.passwordGeneratorService = passwordGeneratorService;
@@ -118,6 +119,7 @@ public class WildUserServiceImpl implements WildUserService {
         user.setPhone(userDTO.getPhone());
         user.setRole(roles);
         user.setLocation(locations);
+    }
 
     @Override
     public List<WildUserNameIdDTO> getAllUsers() {
