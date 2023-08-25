@@ -8,6 +8,7 @@ import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.role.service.RoleService;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
+import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
 import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import com.wildevent.WildEventMenager.user.service.dtoMapper.UserDTOMapper;
@@ -117,6 +118,13 @@ public class WildUserServiceImpl implements WildUserService {
         user.setPhone(userDTO.getPhone());
         user.setRole(roles);
         user.setLocation(locations);
+
+    @Override
+    public List<WildUserNameIdDTO> getAllUsers() {
+        return wildUserRepository.findAll().stream()
+                .filter(WildUser::isActive)
+                .map(userDTOMapper::getUserNameIdDtoFromWildUser)
+                .toList();
     }
 }
 

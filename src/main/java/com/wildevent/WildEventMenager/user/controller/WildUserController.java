@@ -2,6 +2,7 @@ package com.wildevent.WildEventMenager.user.controller;
 
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
+import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import com.wildevent.WildEventMenager.user.service.WildUserService;
 import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:3000")
 public class WildUserController {
     private final static String ACTIVE_STAFF_URL = "/staff";
+    private final static String ACTIVE_USER_NAMES_URL = "/user/names";
+    private final static String USER_NAMES_ID_URL = AccessUrlProvider.AUTH + ACTIVE_USER_NAMES_URL;
     private final static String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = AccessUrlProvider.STAFF_MANAGEMENT + ACTIVE_STAFF_URL;
     private final WildUserService wildUserService;
 
@@ -61,6 +64,15 @@ public class WildUserController {
             return new ResponseEntity<>("User deactivated successfully", HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = USER_NAMES_ID_URL)
+    public ResponseEntity<List<WildUserNameIdDTO>> getAllUsers() {
+        try {
+            return ResponseEntity.ok().body(wildUserService.getAllUsers());
+        } catch (Error e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

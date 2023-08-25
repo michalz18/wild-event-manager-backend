@@ -1,10 +1,12 @@
 package com.wildevent.WildEventMenager.location.controller;
 
 import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ import java.util.UUID;
 public class LocationController {
 
     private final static String LOCATION_URL = "/location";
-    private final static String LOCATIONS_URL = "/locations";
+        private final static String LOCATIONS_URL = "/locations";
     private final static String NO_AUTH_LOCATION_URL = AccessUrlProvider.NO_AUTH + LOCATION_URL;
     private final static String AUTH_LOCATIONS_URL = AccessUrlProvider.AUTH + LOCATIONS_URL;
     private final LocationService locationService;
@@ -35,7 +37,7 @@ public class LocationController {
         return ResponseEntity.ok().body(locationService.getLocationPoints());
     }
 
-    @GetMapping(value = NO_AUTH_LOCATION_URL +"/{id}")
+    @GetMapping(value = NO_AUTH_LOCATION_URL + "/{id}")
     public ResponseEntity<Object> getLocationById(@PathVariable UUID id) {
         try {
             Optional<LocationDTO> optionalLocationDTO = locationService.getLocationById(id);
@@ -48,7 +50,12 @@ public class LocationController {
     }
 
     @GetMapping(value = AUTH_LOCATIONS_URL)
-    public ResponseEntity<List<LocationDTO>> getAllLocations() {
-        return ResponseEntity.ok().body(locationService.getAllLocations());
+    public ResponseEntity<List<LocationIdTitleDTO>> getAllLocations() {
+        try {
+            return ResponseEntity.ok().body(locationService.getAllLocations());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+        }
     }
 }

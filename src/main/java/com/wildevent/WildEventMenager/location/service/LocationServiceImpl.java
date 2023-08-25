@@ -1,11 +1,11 @@
 package com.wildevent.WildEventMenager.location.service;
 
 import com.wildevent.WildEventMenager.location.model.Location;
-import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
+import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.repository.LocationRepository;
 import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationDTOMapper;
-import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationPointDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +20,17 @@ public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
     private final LocationDTOMapper locationDTOMapper;
-    private final LocationPointDTOMapper locationPointDtoMapper;
 
     @Autowired
-    public LocationServiceImpl(LocationRepository locationRepository, LocationDTOMapper locationDTOMapper, LocationPointDTOMapper locationPointDtoMapper) {
+    public LocationServiceImpl(LocationRepository locationRepository, LocationDTOMapper locationDTOMapper) {
         this.locationRepository = locationRepository;
         this.locationDTOMapper = locationDTOMapper;
-        this.locationPointDtoMapper = locationPointDtoMapper;
     }
 
     @Override
     public List<LocationPointDTO> getLocationPoints() {
         List<Location> locations = locationRepository.findAll();
-        return locationPointDtoMapper.getLocationPointsDtoFromLocation(locations);
+        return locationDTOMapper.getLocationPointsDtoFromLocation(locations);
     }
 
     @Override
@@ -40,14 +38,14 @@ public class LocationServiceImpl implements LocationService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         return locationRepository.findLocationWithEventsBetweenDates(id, now, endOfDay)
-                        .map(locationDTOMapper::getLocationDtoFromLocation);
+                .map(locationDTOMapper::getLocationDtoFromLocation);
     }
 
     @Override
-    public List<LocationDTO> getAllLocations() {
+    public List<LocationIdTitleDTO> getAllLocations() {
         List<Location> locations = locationRepository.findAll();
         return locations.stream()
-                .map(locationDTOMapper::getLocationDtoFromLocation)
+                .map(locationDTOMapper::getLocationIdTitleDTO)
                 .collect(Collectors.toList());
     }
 
