@@ -1,6 +1,7 @@
 package com.wildevent.WildEventMenager.event.repository;
 
 import com.wildevent.WildEventMenager.event.model.Event;
+import com.wildevent.WildEventMenager.user.model.WildUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

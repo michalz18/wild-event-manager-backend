@@ -3,9 +3,7 @@ package com.wildevent.WildEventMenager.event.model;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDateTime;

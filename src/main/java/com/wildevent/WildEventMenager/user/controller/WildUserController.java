@@ -4,14 +4,14 @@ import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import com.wildevent.WildEventMenager.user.service.WildUserService;
+import com.wildevent.WildEventMenager.user.model.ReceivedWildUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,8 +28,43 @@ public class WildUserController {
     }
 
     @GetMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL)
-    public List<WildUserDTO> getAllActiveUsers() {
-        return wildUserService.getAllActiveUsers();
+    public ResponseEntity<List<WildUserDTO>> getAllActiveUsers() {
+        try {
+            List<WildUserDTO> activeUsers = wildUserService.getAllActiveUsers();
+            return new ResponseEntity<>(activeUsers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL)
+    public ResponseEntity<String> addUser(@RequestBody ReceivedWildUserDTO userDTO) {
+        boolean createdUser = wildUserService.createUser(userDTO);
+        if (createdUser) {
+            return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Failed to create user", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable UUID userId, @RequestBody ReceivedWildUserDTO userDTO) {
+        try {
+            wildUserService.updateUser(userId, userDTO);
+            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(value = STAFF_MANAGEMENT_ACTIVE_STAFF_URL + "/deactivate/{userId}")
+    public ResponseEntity<String> deactivateUser(@PathVariable UUID userId) {
+        try {
+            wildUserService.deactivateUser(userId);
+            return new ResponseEntity<>("User deactivated successfully", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = USER_NAMES_ID_URL)

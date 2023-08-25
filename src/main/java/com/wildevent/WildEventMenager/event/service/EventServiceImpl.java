@@ -68,4 +68,12 @@ public class EventServiceImpl implements EventService {
     public void deleteEventById(UUID id) {
         eventRepository.deleteById(id);
     }
+
+    @Override
+    public List<Event> findAllEventsByOrganizer(UUID userId) {
+        return eventRepository.findAll()
+                .stream()
+                .filter(event -> event.getOrganizer().stream().anyMatch(user -> user.getId().equals(userId)))
+                .toList();
+    }
 }
