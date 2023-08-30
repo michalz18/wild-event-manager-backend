@@ -4,20 +4,24 @@ import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
+import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 class EventServiceImplTest {
     @Mock
     private EventRepository eventRepository;
@@ -68,5 +72,21 @@ class EventServiceImplTest {
 
         assertFalse(resultEventDTO.isPresent());
         verify(eventRepository, times(1)).findById(invalidId);
+    }
+
+    @Test
+    public void testDeleteEventWithInvalidIdShouldReturnException() {
+        UUID nonExistentEventId = UUID.randomUUID();
+
+
+        try{
+            eventService.deleteEventById(nonExistentEventId);
+        }catch (NoSuchElementException exception){
+            assertEquals("Event not found", exception.getMessage());
+        }
+
+
+        verify(eventRepository, never()).deleteById(any());
+
     }
 }

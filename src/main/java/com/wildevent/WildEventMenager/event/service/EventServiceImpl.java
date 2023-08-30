@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,6 +54,7 @@ public class EventServiceImpl implements EventService {
 
     }
 
+    @Override
     public void addEvent(ReceivedEventDTO dto) {
         Location location = locationRepository.findById(UUID.fromString(dto.getLocationId()))
                 .orElseThrow(() -> new EntityNotFoundException("Location not found"));
@@ -65,8 +67,13 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(eventDTOMapper.getEventFormReceivedEventDTO(dto, location, organizerList));
     }
 
+    @Override
     public void deleteEventById(UUID id) {
-        eventRepository.deleteById(id);
+        if (!eventRepository.existsById(id)) {
+            throw new NoSuchElementException("Event not found");
+        } else {
+            eventRepository.deleteById(id);
+        }
     }
 
     @Override
