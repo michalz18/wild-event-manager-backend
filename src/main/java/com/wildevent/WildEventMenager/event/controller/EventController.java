@@ -78,7 +78,7 @@ public class EventController {
         }
     }
 
-    @DeleteMapping( EVENT_MANAGEMENT_EVENT_URL + "/{id}")
+    @DeleteMapping(EVENT_MANAGEMENT_EVENT_URL + "/{id}")
     public ResponseEntity<Object> deleteEvent(@PathVariable UUID id) {
         try {
             eventService.deleteEventById(id);

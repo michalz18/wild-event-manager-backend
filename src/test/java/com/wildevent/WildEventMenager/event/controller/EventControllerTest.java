@@ -33,7 +33,7 @@ class EventControllerTest {
     String EVENT_MANAGEMENT_EVENT_URL = AccessUrlProvider.EVENT_MANAGEMENT + "/event";
     private final static String NO_AUTH_EVENT_URL = AccessUrlProvider.NO_AUTH + "/event";
 
-    ObjectMapper objectMapper;
+   private ObjectMapper objectMapper;
 
     @Autowired
     private MockMvc mockMvc;
