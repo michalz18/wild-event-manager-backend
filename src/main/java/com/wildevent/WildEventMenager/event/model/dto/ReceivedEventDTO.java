@@ -6,10 +6,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class ReceivedEventDTO {
     @NotNull
@@ -26,4 +29,5 @@ public class ReceivedEventDTO {
     @org.hibernate.validator.constraints.UUID
     private String locationId;
     private List<String> organizers;
+
 }

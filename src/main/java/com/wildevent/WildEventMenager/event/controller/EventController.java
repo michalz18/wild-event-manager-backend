@@ -61,7 +61,7 @@ public class EventController {
     }
 
     @PostMapping(value = EVENT_MANAGEMENT_EVENT_URL)
-    public ResponseEntity<Object> consumeForm(@Valid @RequestBody ReceivedEventDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<Object> addNewEvent(@Valid @RequestBody ReceivedEventDTO dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors()
                     .stream()
@@ -74,11 +74,11 @@ public class EventController {
             } catch (Error e) {
                 e.printStackTrace();
             }
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Event created successfully");
         }
     }
 
-    @DeleteMapping( EVENT_MANAGEMENT_EVENT_URL + "/{id}")
+    @DeleteMapping(EVENT_MANAGEMENT_EVENT_URL + "/{id}")
     public ResponseEntity<Object> deleteEvent(@PathVariable UUID id) {
         try {
             eventService.deleteEventById(id);
