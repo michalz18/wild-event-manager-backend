@@ -6,14 +6,15 @@ VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 'Super Admin', '1234567890', 'jo
        ('1b2e0fb8-3949-4b58-9f6a-54f9a2e17fc0', 'Mike Williams', '9998887777', 'mike@example.com', 0),
        ('5a00d3f5-1265-41b3-a6e2-07053bdf5e72', 'Katie Snow', '5551234567', 'katie@example.com', 1),
        ('a8d99b2b-d7c1-47c3-92fe-11f55e3c24ef', 'Adam Stone', '2223334444', 'adam@example.com', 1);
-INSERT INTO coordinate (id, coordinatex, coordinatey)
-VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 45.75, 90.25),
-       ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 20.50, 65.00),
-       ('7638419a-7a9f-4dca-a9ba-e1a5f0ebef62', 80.00, 30.75),
-       ('e7073c8f-f5f8-4e24-83c1-d86abdedcfda', 10.25, 50.50),
-       ('1b2e0fb8-3949-4b58-9f6a-54f9a2e17fc0', 70.80, 15.90),
-       ('5a00d3f5-1265-41b3-a6e2-07053bdf5e72', 35.60, 75.35),
-       ('e537546b-4b5f-4d29-85e7-91624e059457', 95.10, 5.20);
+INSERT INTO coordinate (id, latitude, longitude)
+VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 52.257939, 21.023690),
+       ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 52.255194, 21.022596),
+       ('7638419a-7a9f-4dca-a9ba-e1a5f0ebef62', 52.256600, 21.021051),
+       ('e7073c8f-f5f8-4e24-83c1-d86abdedcfda', 52.257769, 21.022081),
+       ('1b2e0fb8-3949-4b58-9f6a-54f9a2e17fc0', 52.260172, 21.018605),
+       ('5a00d3f5-1265-41b3-a6e2-07053bdf5e72', 52.257664, 21.026158),
+       ('e537546b-4b5f-4d29-85e7-91624e059457', 52.259910, 21.022574),
+       ('7a985f4c-cf3e-4d1a-9cb4-f8e8f9a3a2f7', 52.258911, 21.022939);
 INSERT INTO location (id, title, description, coordinate_id)
 VALUES ('36317681-9c3c-434c-9ea4-055a1f127e0a', 'Elephant Pavilion', 'A spacious exhibit where elephants roam freely. Visitors can watch these majestic creatures up close.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '7c9e6679-7425-40de-944b-e07fc1f90ae7'),
        ('5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59', 'Arctic Menagerie', 'Experience the chilling beauty of the Arctic region with polar bears, seals, and arctic birds.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
@@ -82,3 +83,13 @@ INSERT INTO wild_user_role (role_id, wild_user_id) VALUES
         ('ddb98ed3-0765-4c70-9d02-2be7d18d86d2','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
         ('e8f461a2-82c4-4d1c-9c0b-aa61f1b3c786','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
         ('3a9c8e47-ea25-4322-9d7f-b0f48c349ce5','7c9e6679-7425-40de-944b-e07fc1f90ae7');
+INSERT INTO map (id, coordinate_id, zoom, bearing, current) VALUES
+        ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '7a985f4c-cf3e-4d1a-9cb4-f8e8f9a3a2f7', 15.0, -33, true);
+INSERT INTO map_locations (map_id, locations_id) VALUES
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '36317681-9c3c-434c-9ea4-055a1f127e0a'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'e6f29eb9-9c50-44c1-8ebc-1dced4d12c09'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '78f2e590-5aa7-414e-baad-7d4a3ff7120f'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'c2a78481-719b-4bf7-ae3d-013a89d1eb44'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '29b77468-c687-4565-bf9f-0cb6c5db9183'),
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '99474b78-09d8-418e-8d39-3c5a3a0c4a43');
