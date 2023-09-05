@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.location.validation;
+package com.wildevent.WildEventMenager.coordinate.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

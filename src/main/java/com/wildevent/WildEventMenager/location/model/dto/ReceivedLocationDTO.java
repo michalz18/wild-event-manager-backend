@@ -1,6 +1,7 @@
 package com.wildevent.WildEventMenager.location.model.dto;
 
-import com.wildevent.WildEventMenager.location.validation.ValidCoordinate;
+import com.wildevent.WildEventMenager.coordinate.model.CoordinateDTO;
+import com.wildevent.WildEventMenager.coordinate.validation.ValidCoordinate;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

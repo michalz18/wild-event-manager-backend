@@ -3,27 +3,35 @@ package com.wildevent.WildEventMenager.event.service;
 import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
+import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
-import com.wildevent.WildEventMenager.event.service.dtoMappers.EventTitleDTOMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wildevent.WildEventMenager.location.model.Location;
+import com.wildevent.WildEventMenager.location.repository.LocationRepository;
+import com.wildevent.WildEventMenager.user.model.WildUser;
+import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
-    private final EventTitleDTOMapper eventTitleDTOMapper;
     private final EventDTOMapper eventDTOMapper;
+    private final LocationRepository locationRepository;
+    private final WildUserRepository wildUserRepository;
 
-    @Autowired
-    public EventServiceImpl(EventRepository eventRepository, EventTitleDTOMapper eventTitleDTOMapper, EventDTOMapper eventDTOMapper) {
+    public EventServiceImpl(EventRepository eventRepository, EventDTOMapper eventDTOMapper, LocationRepository locationRepository, WildUserRepository wildUserRepository) {
         this.eventRepository = eventRepository;
-        this.eventTitleDTOMapper = eventTitleDTOMapper;
         this.eventDTOMapper = eventDTOMapper;
+        this.locationRepository = locationRepository;
+        this.wildUserRepository = wildUserRepository;
     }
 
     @Override
@@ -37,6 +45,42 @@ public class EventServiceImpl implements EventService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime endOfDay = now.withHour(23).withMinute(59).withSecond(59);
         List<Event> todayEvents = eventRepository.findAllByOpenToPublicIsTrueAndStartsAtBetweenOrderByStartsAtAsc(now, endOfDay);
-        return eventTitleDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
+        return eventDTOMapper.getEventTitlesDTOFromEvent(todayEvents);
+    }
+
+    public List<EventDTO> getAllAcceptedEvents() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream().map(eventDTOMapper::getEventDtoFromEvent).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public void addEvent(ReceivedEventDTO dto) {
+        Location location = locationRepository.findById(UUID.fromString(dto.getLocationId()))
+                .orElseThrow(() -> new EntityNotFoundException("Location not found"));
+
+        List<WildUser> organizerList = dto.getOrganizers().stream()
+                .map(el -> wildUserRepository.findById(UUID.fromString(el))
+                        .orElseThrow(() -> new EntityNotFoundException("User not found")))
+                .toList();
+
+        eventRepository.save(eventDTOMapper.getEventFormReceivedEventDTO(dto, location, organizerList));
+    }
+
+    @Override
+    public void deleteEventById(UUID id) {
+        if (!eventRepository.existsById(id)) {
+            throw new NoSuchElementException("Event not found");
+        } else {
+            eventRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public List<Event> findAllEventsByOrganizer(UUID userId) {
+        return eventRepository.findAll()
+                .stream()
+                .filter(event -> event.getOrganizer().stream().anyMatch(user -> user.getId().equals(userId)))
+                .toList();
     }
 }

@@ -1,7 +1,10 @@
 package com.wildevent.WildEventMenager.map.repository;
 
-import java.io.IOException;
+import com.wildevent.WildEventMenager.map.model.Map;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MapRepository {
-    byte[] getMap() throws IOException;
+@Repository
+public interface MapRepository extends JpaRepository<Map, Long> {
+    Map findFirstByCurrentIsTrue();
 }

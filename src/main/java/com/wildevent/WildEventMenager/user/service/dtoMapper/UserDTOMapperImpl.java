@@ -4,9 +4,11 @@ import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.model.WildUserDTO;
+import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class UserDTOMapperImpl implements UserDTOMapper {
     @Override
@@ -21,6 +23,14 @@ public class UserDTOMapperImpl implements UserDTOMapper {
                 wildUser.getPhone(),
                 roles,
                 locations
+        );
+    }
+
+    @Override
+    public WildUserNameIdDTO getUserNameIdDtoFromWildUser(WildUser wildUser) {
+        return new WildUserNameIdDTO(
+                wildUser.getId(),
+                wildUser.getName()
         );
     }
 }

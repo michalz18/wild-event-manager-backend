@@ -4,10 +4,8 @@ import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Data
+@Setter
+
+@Getter
 public class Event {
 
     @Id
@@ -41,4 +41,16 @@ public class Event {
     private boolean openToPublic;
     @ManyToMany
     private List<WildUser> organizer;
+
+    public Event(String title, String description, LocalDateTime startsAt,
+                 LocalDateTime endsAt, Location location, boolean openToPublic,
+                 List<WildUser> organizer) {
+        this.title = title;
+        this.description = description;
+        this.startsAt = startsAt;
+        this.endsAt = endsAt;
+        this.location = location;
+        this.openToPublic = openToPublic;
+        this.organizer = organizer;
+    }
 }
