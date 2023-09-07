@@ -4,6 +4,7 @@ import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDateDTO;
 import com.wildevent.WildEventMenager.event.repository.EventRepository;
 import com.wildevent.WildEventMenager.event.service.dtoMappers.EventDTOMapper;
 import com.wildevent.WildEventMenager.location.model.Location;
@@ -56,15 +57,23 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void addEvent(ReceivedEventDTO dto) {
-        Location location = locationRepository.findById(UUID.fromString(dto.getLocationId()))
-                .orElseThrow(() -> new EntityNotFoundException("Location not found"));
+        eventRepository.save(
+                eventDTOMapper.getEventFormReceivedEventDTO(
+                        dto,
+                        extractLocationFromDTO(dto),
+                        extractWildUserFromDTO(dto)));
+    }
 
-        List<WildUser> organizerList = dto.getOrganizers().stream()
+    private List<WildUser> extractWildUserFromDTO(ReceivedEventDTO dto) {
+        return dto.getOrganizers().stream()
                 .map(el -> wildUserRepository.findById(UUID.fromString(el))
                         .orElseThrow(() -> new EntityNotFoundException("User not found")))
                 .toList();
+    }
 
-        eventRepository.save(eventDTOMapper.getEventFormReceivedEventDTO(dto, location, organizerList));
+    private Location extractLocationFromDTO(ReceivedEventDTO dto) {
+        return locationRepository.findById(UUID.fromString(dto.getLocationId()))
+                .orElseThrow(() -> new EntityNotFoundException("Location not found"));
     }
 
     @Override
@@ -82,5 +91,27 @@ public class EventServiceImpl implements EventService {
                 .stream()
                 .filter(event -> event.getOrganizer().stream().anyMatch(user -> user.getId().equals(userId)))
                 .toList();
+    }
+
+
+    @Override
+    public void updateEvent(ReceivedEventDTO dto, UUID id) {
+        Optional<Event> getEvent = eventRepository.findById(id);
+        getEvent.ifPresent(event -> eventRepository.save(
+                eventDTOMapper.getUpdatedEventFromReceivedEventDTO(
+                        event,
+                        dto,
+                        extractLocationFromDTO(dto),
+                        extractWildUserFromDTO(dto))));
+    }
+
+    @Override
+    public void updateEventData(ReceivedEventDateDTO dto) {
+        Optional<Event> getEvent = eventRepository.findById(UUID.fromString(dto.getId()));
+        getEvent.ifPresent(event -> eventRepository.save(
+                eventDTOMapper.getUpdatedEventFromReceivedDate(
+                        dto,
+                        event
+                )));
     }
 }

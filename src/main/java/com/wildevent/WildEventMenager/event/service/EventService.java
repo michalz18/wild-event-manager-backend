@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDateDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +23,9 @@ public interface EventService {
     void deleteEventById(UUID id);
 
     List<Event> findAllEventsByOrganizer(UUID id);
+
+
+    void updateEvent(ReceivedEventDTO dto, UUID id);
+
+    void updateEventData(ReceivedEventDateDTO dto);
 }

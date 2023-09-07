@@ -3,6 +3,7 @@ package com.wildevent.WildEventMenager.event.controller;
 import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDateDTO;
 import com.wildevent.WildEventMenager.event.service.EventServiceImpl;
 import com.wildevent.WildEventMenager.security.AccessUrlProvider;
 import jakarta.validation.Valid;
@@ -88,6 +89,42 @@ public class EventController {
         }
     }
 
+    @PatchMapping(EVENT_MANAGEMENT_EVENT_URL + "/{id}")
+    public ResponseEntity<Object> updateEvent(@Valid @PathVariable UUID id, @RequestBody ReceivedEventDTO dto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return ResponseEntity.badRequest().body(errors);
+        } else {
+            try {
+                eventService.updateEvent(dto, id);
+            } catch (Error e) {
+                return ResponseEntity.badRequest().body("An error occurred: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("Event updated successfully");
+        }
+    }
+
+    @PatchMapping(EVENT_MANAGEMENT_EVENT_URL)
+    public ResponseEntity<Object> updateEvent(@RequestBody  ReceivedEventDateDTO dto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .toList();
+            return ResponseEntity.badRequest().body(errors);
+        } else {
+            try {
+                eventService.updateEventData(dto);
+            } catch (Error e) {
+                return ResponseEntity.badRequest().body("An error occurred: " + e.getMessage());
+            }
+            return ResponseEntity.ok().body("Event updated successfully");
+
+        }
+    }
 
 }
 
