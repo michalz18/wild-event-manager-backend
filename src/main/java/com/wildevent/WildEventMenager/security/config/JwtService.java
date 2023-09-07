@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.security;
+package com.wildevent.WildEventMenager.security.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
