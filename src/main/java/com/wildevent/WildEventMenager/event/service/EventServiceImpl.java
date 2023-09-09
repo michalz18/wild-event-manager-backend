@@ -56,12 +56,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void addEvent(ReceivedEventDTO dto) {
-        eventRepository.save(
+    public UUID addEvent(ReceivedEventDTO dto) {
+        Event newEvent = eventRepository.save(
                 eventDTOMapper.getEventFormReceivedEventDTO(
                         dto,
                         extractLocationFromDTO(dto),
                         extractWildUserFromDTO(dto)));
+        return newEvent.getId();
     }
 
     private List<WildUser> extractWildUserFromDTO(ReceivedEventDTO dto) {

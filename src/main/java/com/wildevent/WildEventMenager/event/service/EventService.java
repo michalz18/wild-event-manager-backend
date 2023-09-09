@@ -18,7 +18,7 @@ public interface EventService {
     List<EventTitleDTO> getTodayIncomingEvents();
     Optional<EventDTO> getEventById(UUID id);
 
-    void addEvent(ReceivedEventDTO dto);
+    UUID addEvent(ReceivedEventDTO dto);
 
     void deleteEventById(UUID id);
 
