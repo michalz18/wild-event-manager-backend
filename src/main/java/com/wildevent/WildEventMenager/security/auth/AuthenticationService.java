@@ -35,7 +35,7 @@ public class AuthenticationService {
                 .build();
 
         wildUserRepository.save(user);
-        String resetToken = jwtService.generateToken(user);
+        String resetToken = jwtService.generatePasswordResetToken(user);
 
         emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
 
