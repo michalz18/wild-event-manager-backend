@@ -11,11 +11,13 @@ public class EmailSendingService {
         this.emailService = emailService;
     }
 
-    public void sendWelcomeEmail(String email, String generatedPassword) {
+    public void sendPasswordResetEmail(String email, String token) {
+        String resetUrl = "http://localhost:3000/reset-password?token=" + token;
+
         EmailDetails emailDetails = new EmailDetails(
                 email,
-                "Your password: " + generatedPassword,
-                "Welcome to Wild Event Management!"
+                "Click the following link to set your password: " + resetUrl,
+                "Welcome to Wild Event Manager!"
         );
         emailService.sendMail(emailDetails);
     }
