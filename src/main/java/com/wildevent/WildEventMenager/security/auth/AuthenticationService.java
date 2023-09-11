@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,9 +86,20 @@ public class AuthenticationService {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         if (jwtService.isTokenValid(token, userDetails)) {
-            Claims claims = jwtService.extractAll
-        }
+            String tokenType = jwtService.extractTokenType(token);
 
+            if(!"reset_password".equals((tokenType))) {
+                throw new IllegalArgumentException("Invalid token type");
+            }
+
+            WildUser user = wildUserRepository.findByEmail(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+            user.setPassword(passwordEncoder.encode(newPassword));
+            wildUserRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Invalid token");
+        }
     }
 
     private String generateRandomPassword(int length) {

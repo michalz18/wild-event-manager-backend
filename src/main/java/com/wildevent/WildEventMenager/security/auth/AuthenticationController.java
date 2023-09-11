@@ -32,7 +32,7 @@ public class AuthenticationController {
     public ResponseEntity<String> resetPassword(
             @RequestBody ResetPasswordRequest resetPasswordRequest
     ) {
-        service.resetPassword(request);
+        service.resetPassword(resetPasswordRequest);
         return ResponseEntity.ok("Password successfully reset.");
     }
 }
