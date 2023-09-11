@@ -1,7 +1,5 @@
 package com.wildevent.WildEventMenager.security.auth;
 
-import com.wildevent.WildEventMenager.location.model.Location;
-import com.wildevent.WildEventMenager.role.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

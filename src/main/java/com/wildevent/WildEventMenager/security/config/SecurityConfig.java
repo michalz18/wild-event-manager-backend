@@ -26,7 +26,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // Wyłączenie CSRF
                 .authorizeHttpRequests(authRequests -> authRequests
                         .requestMatchers(new AntPathRequestMatcher("/no-auth/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()// Dostęp publiczny dla URL zaczynających się od "no-auth/"
                         .requestMatchers(new AntPathRequestMatcher("/**"))
                         .hasAnyAuthority("MY-EVENTS", "EVENT-MANAGEMENT", "MAP-CONFIGURATION", "EMPLOYEE-MANAGEMENT")  // Wymagane jedno z uprawnień
                         .anyRequest().authenticated())  // Dla wszystkich innych żądań wymagana jest autentykacja

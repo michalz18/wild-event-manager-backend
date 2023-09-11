@@ -66,7 +66,7 @@ public class WildUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !this.active;
+        return this.active;
     }
 
     @Override
