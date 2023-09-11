@@ -43,6 +43,7 @@ public class AuthenticationController {
     public ResponseEntity<String> generateResetPasswordLinkByUserRequest(
             @RequestBody String email
     ) {
-        return null;
+        service.generateResetLink(email);
+        return ResponseEntity.ok("Reset link sent");
     }
 }
