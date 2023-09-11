@@ -99,6 +99,7 @@ public class EventController {
             return ResponseEntity.badRequest().body(errors);
         } else {
             try {
+
                 eventService.updateEvent(dto, id);
             } catch (Error e) {
                 return ResponseEntity.badRequest().body("An error occurred: " + e.getMessage());

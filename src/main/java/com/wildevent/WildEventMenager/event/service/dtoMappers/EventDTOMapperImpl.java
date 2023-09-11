@@ -45,7 +45,8 @@ public class EventDTOMapperImpl implements EventDTOMapper {
         event.setStartsAt(receivedEventDTO.getDateRange().getStartsAt());
         event.setEndsAt(receivedEventDTO.getDateRange().getEndsAt());
         event.setLocation(location);
-        event.setOrganizer(organizerList);
+        event.getOrganizer().clear();
+        event.getOrganizer().addAll(organizerList);
         event.setOpenToPublic(receivedEventDTO.isOpenToPublic());
         return event;
     }
