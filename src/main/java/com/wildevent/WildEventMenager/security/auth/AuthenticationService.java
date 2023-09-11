@@ -111,6 +111,13 @@ public class AuthenticationService {
         }
     }
 
+    public void generateResetLink(String email) {
+        WildUser user = wildUserRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        String resetToken = jwtService.generatePasswordResetToken(user);
+        emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
+    }
+
     private String generateRandomPassword(int length) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-+<>?";
         StringBuilder password = new StringBuilder();
