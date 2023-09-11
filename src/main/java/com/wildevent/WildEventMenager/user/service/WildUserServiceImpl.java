@@ -80,7 +80,7 @@ public class WildUserServiceImpl implements WildUserService {
 
         wildUserRepository.save(wildUser);
 
-        emailSendingService.sendWelcomeEmail(userDTO.getEmail(), generatedPassword);
+//        emailSendingService.sendWelcomeEmail(userDTO.getEmail(), generatedPassword);
 
         return true;
     }
