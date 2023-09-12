@@ -25,7 +25,7 @@ public interface EventService {
     List<Event> findAllEventsByOrganizer(UUID id);
 
 
-    void updateEvent(ReceivedEventDTO dto, UUID id);
+    UUID updateEvent(ReceivedEventDTO dto, UUID id);
 
     void updateEventData(ReceivedEventDateDTO dto);
 }

@@ -100,11 +100,10 @@ public class EventController {
         } else {
             try {
 
-                eventService.updateEvent(dto, id);
+               return ResponseEntity.ok().body(eventService.updateEvent(dto, id));
             } catch (Error e) {
                 return ResponseEntity.badRequest().body("An error occurred: " + e.getMessage());
             }
-            return ResponseEntity.ok().body("Event updated successfully");
         }
     }
 
