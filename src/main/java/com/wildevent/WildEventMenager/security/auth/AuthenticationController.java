@@ -41,9 +41,9 @@ public class AuthenticationController {
 
     @PostMapping("/generate-reset-link")
     public ResponseEntity<String> generateResetPasswordLinkByUserRequest(
-            @RequestBody String email
+            @RequestBody ResetPasswordByUserRequest request
     ) {
-        service.generateResetLink(email);
+        service.generateResetLink(request);
         return ResponseEntity.ok("Reset link sent");
     }
 }

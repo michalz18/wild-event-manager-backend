@@ -111,11 +111,18 @@ public class AuthenticationService {
         }
     }
 
-    public void generateResetLink(String email) {
-        WildUser user = wildUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        String resetToken = jwtService.generatePasswordResetToken(user);
-        emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
+    public void generateResetLink(ResetPasswordByUserRequest request) {
+        try {
+            WildUser user = wildUserRepository.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            String resetToken = jwtService.generatePasswordResetToken(user);
+            emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
+        } catch (Exception e) {
+            logger.error("Error during generating reset link: ", e);
+            throw e;
+
+        }
+
     }
 
     private String generateRandomPassword(int length) {

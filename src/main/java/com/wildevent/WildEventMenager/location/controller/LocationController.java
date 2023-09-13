@@ -22,7 +22,7 @@ import java.util.UUID;
 public class LocationController {
 
     private final static String LOCATION_URL = "/location";
-        private final static String LOCATIONS_URL = "/locations";
+    private final static String LOCATIONS_URL = "/locations";
     private final static String NO_AUTH_LOCATION_URL = AccessUrlProvider.NO_AUTH + LOCATION_URL;
     private final static String AUTH_LOCATIONS_URL = AccessUrlProvider.AUTH + LOCATIONS_URL;
     private final LocationService locationService;

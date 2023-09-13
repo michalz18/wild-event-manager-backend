@@ -23,16 +23,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Wyłączenie CSRF
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequests -> authRequests
                         .requestMatchers(new AntPathRequestMatcher("/no-auth/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/**"))
-                        .hasAnyAuthority("MY-EVENTS", "EVENT-MANAGEMENT", "MAP-CONFIGURATION", "EMPLOYEE-MANAGEMENT")  // Wymagane jedno z uprawnień
-                        .anyRequest().authenticated())  // Dla wszystkich innych żądań wymagana jest autentykacja
-                .sessionManagement(sessionMgmt -> sessionMgmt  // Konfiguracja zarządzania sesją
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Bezstanowość sesji
-                .authenticationProvider(authenticationProvider)  // Dostawca autentykacji
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // Dodanie filtra JWT
+                        .hasAnyAuthority("MY-EVENTS", "EVENT-MANAGEMENT", "MAP-CONFIGURATION", "EMPLOYEE-MANAGEMENT")
+                        .anyRequest().authenticated())
+                .sessionManagement(sessionMgmt -> sessionMgmt
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
