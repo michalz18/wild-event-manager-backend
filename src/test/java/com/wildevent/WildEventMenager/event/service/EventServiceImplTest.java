@@ -51,7 +51,7 @@ class EventServiceImplTest {
                 "Event description",
                 LocalDateTime.of(2023, 7, 27, 10, 0),
                 LocalDateTime.of(2023, 7, 27, 12, 0),
-                "Title"
+                "Title", List.of("John"), true
         );
         when(eventRepository.findById(eventId)).thenReturn(Optional.of(event));
         when(eventDTOMapper.getEventDtoFromEvent(event)).thenReturn(expectedEventDTO);
@@ -145,13 +145,13 @@ class EventServiceImplTest {
                 "Event description",
                 LocalDateTime.of(2023, 7, 27, 10, 0),
                 LocalDateTime.of(2023, 7, 27, 12, 0),
-                "Title"
+                "Title", List.of("John"), true
         );
         EventDTO expectedEventDTO2 = new EventDTO("Sample Event2",
                 "Event description2",
                 LocalDateTime.of(2023, 7, 27, 11, 0),
                 LocalDateTime.of(2023, 7, 27, 12, 0),
-                "Title2"
+                "Title2", List.of("Adam")
         );
         List<EventDTO> eventDTOS = List.of(expectedEventDTO1, expectedEventDTO2);
         when(eventRepository.findAll()).thenReturn(allEvents);
