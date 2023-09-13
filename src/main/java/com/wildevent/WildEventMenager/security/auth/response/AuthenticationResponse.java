@@ -1,4 +1,4 @@
-package com.wildevent.WildEventMenager.security.auth;
+package com.wildevent.WildEventMenager.security.auth.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

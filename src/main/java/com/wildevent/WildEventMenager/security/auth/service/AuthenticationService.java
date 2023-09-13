@@ -1,14 +1,18 @@
-package com.wildevent.WildEventMenager.security.auth;
+package com.wildevent.WildEventMenager.security.auth.service;
 
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.service.LocationService;
 import com.wildevent.WildEventMenager.role.model.Role;
 import com.wildevent.WildEventMenager.role.service.RoleService;
+import com.wildevent.WildEventMenager.security.auth.dto.AuthenticationRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.RegisterRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.ResetPasswordByUserRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.ResetPasswordRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.response.AuthenticationResponse;
 import com.wildevent.WildEventMenager.security.config.JwtService;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
 import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +44,7 @@ public class AuthenticationService {
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     @Transactional
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequestDTO request) {
         try {
             String randomPassword = generateRandomPassword();
             List<Location> locations = locationService.mapLocationsFromIds(request.getLocationIds());
@@ -71,7 +75,7 @@ public class AuthenticationService {
         }
     }
 
-    public AuthenticationResponse authenticate(RegisterRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequestDTO request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -95,7 +99,7 @@ public class AuthenticationService {
         }
     }
 
-    public void resetPassword(ResetPasswordRequest request) {
+    public void resetPassword(ResetPasswordRequestDTO request) {
         String token = request.getToken();
         String newPassword = request.getNewPassword();
 
@@ -119,7 +123,7 @@ public class AuthenticationService {
         }
     }
 
-    public void generateResetLink(ResetPasswordByUserRequest request) {
+    public void generateResetLink(ResetPasswordByUserRequestDTO request) {
         try {
             WildUser user = wildUserRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));

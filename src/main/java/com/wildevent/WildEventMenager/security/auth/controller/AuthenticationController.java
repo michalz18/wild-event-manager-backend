@@ -1,11 +1,15 @@
-package com.wildevent.WildEventMenager.security.auth;
+package com.wildevent.WildEventMenager.security.auth.controller;
 
-import com.wildevent.WildEventMenager.user.model.WildUser;
-import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
+import com.wildevent.WildEventMenager.security.auth.service.AuthenticationService;
+import com.wildevent.WildEventMenager.security.auth.dto.AuthenticationRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.RegisterRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.ResetPasswordByUserRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.dto.ResetPasswordRequestDTO;
+import com.wildevent.WildEventMenager.security.auth.response.AuthenticationResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +24,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequestDTO request
     ) {
         AuthenticationResponse response = service.register(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -28,23 +32,23 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody RegisterRequest request
-    ) {
+           @Valid @RequestBody AuthenticationRequestDTO request
+            ) {
         AuthenticationResponse response = service.authenticate(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPasswordAfterCreatingUser(
-            @RequestBody ResetPasswordRequest resetPasswordRequest
+            @Valid @RequestBody ResetPasswordRequestDTO resetPasswordRequestDTO
     ) {
-        service.resetPassword(resetPasswordRequest);
+        service.resetPassword(resetPasswordRequestDTO);
         return new ResponseEntity<>("Password successfully reset.", HttpStatus.OK);
     }
 
     @PostMapping("/generate-reset-link")
     public ResponseEntity<String> generateResetPasswordLinkByUserRequest(
-            @RequestBody ResetPasswordByUserRequest request
+            @Valid @RequestBody ResetPasswordByUserRequestDTO request
     ) {
         service.generateResetLink(request);
         return new ResponseEntity<>("Reset link sent", HttpStatus.OK);
