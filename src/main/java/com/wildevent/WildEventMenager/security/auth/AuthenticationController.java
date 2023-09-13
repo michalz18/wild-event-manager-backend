@@ -3,6 +3,7 @@ package com.wildevent.WildEventMenager.security.auth;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +22,16 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        AuthenticationResponse response = service.register(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        AuthenticationResponse response = service.authenticate(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/reset-password")
@@ -36,7 +39,7 @@ public class AuthenticationController {
             @RequestBody ResetPasswordRequest resetPasswordRequest
     ) {
         service.resetPassword(resetPasswordRequest);
-        return ResponseEntity.ok("Password successfully reset.");
+        return new ResponseEntity<>("Password successfully reset.", HttpStatus.OK);
     }
 
     @PostMapping("/generate-reset-link")
@@ -44,6 +47,7 @@ public class AuthenticationController {
             @RequestBody ResetPasswordByUserRequest request
     ) {
         service.generateResetLink(request);
-        return ResponseEntity.ok("Reset link sent");
+        return new ResponseEntity<>("Reset link sent", HttpStatus.OK);
     }
 }
+

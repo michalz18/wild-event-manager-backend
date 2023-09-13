@@ -36,32 +36,39 @@ public class AuthenticationService {
     private final UserDetailsService userDetailsService;
     private final LocationService locationService;
     private final RoleService roleService;
+
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
-        String randomPassword = generateRandomPassword(8);
-        List<Location> locations = locationService.mapLocationsFromIds(request.getLocationIds());
-        Set<Role> roles = roleService.mapRolesFromIds(request.getRoleIds());
+        try {
+            String randomPassword = generateRandomPassword();
+            List<Location> locations = locationService.mapLocationsFromIds(request.getLocationIds());
+            Set<Role> roles = roleService.mapRolesFromIds(request.getRoleIds());
 
-        WildUser user = WildUser.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(randomPassword))
-                .phone(request.getPhone())
-                .active(true)
-                .location(locations)
-                .role(roles)
-                .build();
+            WildUser user = WildUser.builder()
+                    .name(request.getName())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(randomPassword))
+                    .phone(request.getPhone())
+                    .active(true)
+                    .location(locations)
+                    .role(roles)
+                    .build();
 
-        wildUserRepository.save(user);
-        String resetToken = jwtService.generatePasswordResetToken(user);
+            wildUserRepository.save(user);
+            String resetToken = jwtService.generatePasswordResetToken(user);
 
-        emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
+            emailSendingService.sendPasswordResetEmail(user.getEmail(), resetToken);
 
-        return AuthenticationResponse.builder()
-                .token("User created and email sent.")
-                .build();
+            return AuthenticationResponse.builder()
+                    .token(resetToken)
+                    .build();
+
+        } catch (Exception e) {
+            logger.error("Error during registration: ", e);
+            throw e;
+        }
     }
 
     public AuthenticationResponse authenticate(RegisterRequest request) {
@@ -74,13 +81,14 @@ public class AuthenticationService {
             );
 
             WildUser user = wildUserRepository.findByEmail(request.getEmail())
-                    .orElseThrow();
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             var jwtToken = jwtService.generateToken(user);
 
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .build();
+
         } catch (Exception e) {
             logger.error("Error during authentication: ", e);
             throw e;
@@ -122,15 +130,15 @@ public class AuthenticationService {
             throw e;
 
         }
-
     }
 
-    private String generateRandomPassword(int length) {
+    private String generateRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-+<>?";
         StringBuilder password = new StringBuilder();
         SecureRandom random = new SecureRandom();
+        int RANDOM_PASSWORD_LENGTH = 8;
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < RANDOM_PASSWORD_LENGTH; i++) {
             int index = random.nextInt(characters.length());
             password.append(characters.charAt(index));
         }
