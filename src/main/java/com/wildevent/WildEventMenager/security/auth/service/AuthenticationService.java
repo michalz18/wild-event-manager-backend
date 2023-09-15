@@ -84,13 +84,17 @@ public class AuthenticationService {
                     )
             );
 
+
             WildUser user = wildUserRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
+            System.out.println(user);
             var jwtToken = jwtService.generateToken(user);
 
             return AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .roles(user.getRole())
                     .build();
 
         } catch (Exception e) {
