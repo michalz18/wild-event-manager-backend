@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-@RestController
 @CrossOrigin(origins = "http://localhost:3000")
+@RestController
 public class RoleController {
     private final static String ROLE_URL = "/roles";
     private final static String AUTH_ROLES_URL = AccessUrlProvider.AUTH + ROLE_URL;
