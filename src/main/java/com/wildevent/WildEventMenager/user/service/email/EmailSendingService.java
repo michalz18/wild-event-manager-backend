@@ -12,7 +12,7 @@ public class EmailSendingService {
     }
 
     public void sendPasswordResetEmail(String email, String token) {
-        String resetUrl = "http://localhost:3000/reset-password?token=" + token;
+        String resetUrl = "http://localhost:3000/reset-password/" + token;
 
         EmailDetails emailDetails = new EmailDetails(
                 email,

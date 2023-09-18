@@ -12,7 +12,6 @@ import com.wildevent.WildEventMenager.user.model.WildUserDTO;
 import com.wildevent.WildEventMenager.user.model.WildUserNameIdDTO;
 import com.wildevent.WildEventMenager.user.repository.WildUserRepository;
 import com.wildevent.WildEventMenager.user.service.dtoMapper.UserDTOMapper;
-import com.wildevent.WildEventMenager.user.service.email.EmailSendingService;
 import com.wildevent.WildEventMenager.user.service.password.PasswordGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,6 @@ public class WildUserServiceImpl implements WildUserService {
     private final LocationService locationService;
     private final RoleService roleService;
     private final EventService eventService;
-    private final EmailSendingService emailSendingService;
 
     @Autowired
     public WildUserServiceImpl
@@ -40,8 +38,7 @@ public class WildUserServiceImpl implements WildUserService {
                     PasswordGeneratorService passwordGeneratorService,
                     LocationService locationService,
                     RoleService roleService,
-                    EventService eventService,
-                    EmailSendingService emailSendingService
+                    EventService eventService
             ) {
         this.wildUserRepository = wildUserRepository;
         this.userDTOMapper = userDTOMapper;
@@ -49,7 +46,6 @@ public class WildUserServiceImpl implements WildUserService {
         this.locationService = locationService;
         this.roleService = roleService;
         this.eventService = eventService;
-        this.emailSendingService = emailSendingService;
     }
 
     @Override

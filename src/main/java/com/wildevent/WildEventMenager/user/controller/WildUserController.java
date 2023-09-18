@@ -19,7 +19,7 @@ public class WildUserController {
     private final static String ACTIVE_STAFF_URL = "/staff";
     private final static String ACTIVE_USER_NAMES_URL = "/user/names";
     private final static String USER_NAMES_ID_URL = AccessUrlProvider.AUTH + ACTIVE_USER_NAMES_URL;
-    private final static String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = AccessUrlProvider.AUTH + AccessUrlProvider.STAFF_MANAGEMENT + ACTIVE_STAFF_URL;
+    private final static String STAFF_MANAGEMENT_ACTIVE_STAFF_URL = AccessUrlProvider.STAFF_MANAGEMENT + ACTIVE_STAFF_URL;
     private final WildUserService wildUserService;
 
     @Autowired
