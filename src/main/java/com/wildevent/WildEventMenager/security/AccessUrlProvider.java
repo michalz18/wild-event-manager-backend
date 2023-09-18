@@ -7,4 +7,5 @@ public class AccessUrlProvider {
     public static final String EVENT_MANAGEMENT = "/event-management";
     public static final String STAFF_MANAGEMENT = "/staff-management";
     public static final String MAP_CONFIG = "/map-config";
+    public static final String MY_EVENTS = "/my-event";
 }
