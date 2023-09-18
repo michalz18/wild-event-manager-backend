@@ -33,10 +33,16 @@ public class Location {
     private Coordinate coordinate;
     @OneToMany(mappedBy = "location")
     private List<Event> events;
-    @ManyToMany(mappedBy = "location")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "location")
     private List<WildUser> wildUser;
+    @ManyToOne
+    private Map map;
 
-    @ManyToMany(mappedBy = "locations")
-    private List<Map> map;
-
+    public Location(String title, String description, Coordinate coordinate, List<WildUser> wildUser, Map map) {
+        this.title = title;
+        this.description = description;
+        this.coordinate = coordinate;
+        this.wildUser = wildUser;
+        this.map = map;
+    }
 }

@@ -15,14 +15,16 @@ VALUES ('7c9e6679-7425-40de-944b-e07fc1f90ae7', 52.257939, 21.023690),
        ('5a00d3f5-1265-41b3-a6e2-07053bdf5e72', 52.257664, 21.026158),
        ('e537546b-4b5f-4d29-85e7-91624e059457', 52.259910, 21.022574),
        ('7a985f4c-cf3e-4d1a-9cb4-f8e8f9a3a2f7', 52.258911, 21.022939);
-INSERT INTO location (id, title, description, coordinate_id)
-VALUES ('36317681-9c3c-434c-9ea4-055a1f127e0a', 'Elephant Pavilion', 'A spacious exhibit where elephants roam freely. Visitors can watch these majestic creatures up close.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '7c9e6679-7425-40de-944b-e07fc1f90ae7'),
-       ('5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59', 'Arctic Menagerie', 'Experience the chilling beauty of the Arctic region with polar bears, seals, and arctic birds.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
-       ('e6f29eb9-9c50-44c1-8ebc-1dced4d12c09', 'Aquarium', 'Dive into the mesmerizing underwater world with a variety of colorful fish and marine life.', '7638419a-7a9f-4dca-a9ba-e1a5f0ebef62'),
-       ('78f2e590-5aa7-414e-baad-7d4a3ff7120f', 'Bird Cages', 'Witness the beauty and grace of exotic birds from different corners of the world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'e7073c8f-f5f8-4e24-83c1-d86abdedcfda'),
-       ('c2a78481-719b-4bf7-ae3d-013a89d1eb44', 'Lion"s Den', 'Step into the territory of the king of the jungle and observe these powerful felines in action.', '1b2e0fb8-3949-4b58-9f6a-54f9a2e17fc0'),
-       ('29b77468-c687-4565-bf9f-0cb6c5db9183', 'Monkey Jungle', 'A lively habitat where monkeys swing from trees and entertain visitors with their antics.', '5a00d3f5-1265-41b3-a6e2-07053bdf5e72'),
-       ('99474b78-09d8-418e-8d39-3c5a3a0c4a43', 'Savannah Plains', 'Watch zebras, giraffes, and antelopes grazing together in an environment resembling the African savannah.', 'e537546b-4b5f-4d29-85e7-91624e059457');
+INSERT INTO map (id, coordinate_id, zoom, bearing, current) VALUES
+    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '7a985f4c-cf3e-4d1a-9cb4-f8e8f9a3a2f7', 15.0, -33, true);
+INSERT INTO location (id, title, map_id, description, coordinate_id)
+VALUES ('36317681-9c3c-434c-9ea4-055a1f127e0a', 'Elephant Pavilion', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'A spacious exhibit where elephants roam freely. Visitors can watch these majestic creatures up close.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', '7c9e6679-7425-40de-944b-e07fc1f90ae7'),
+       ('5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59', 'Arctic Menagerie', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'Experience the chilling beauty of the Arctic region with polar bears, seals, and arctic birds.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'f47ac10b-58cc-4372-a567-0e02b2c3d479'),
+       ('e6f29eb9-9c50-44c1-8ebc-1dced4d12c09', 'Aquarium', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'Dive into the mesmerizing underwater world with a variety of colorful fish and marine life.', '7638419a-7a9f-4dca-a9ba-e1a5f0ebef62'),
+       ('78f2e590-5aa7-414e-baad-7d4a3ff7120f', 'Bird Cages', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'Witness the beauty and grace of exotic birds from different corners of the world.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'e7073c8f-f5f8-4e24-83c1-d86abdedcfda'),
+       ('c2a78481-719b-4bf7-ae3d-013a89d1eb44', 'Lion"s Den', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'Step into the territory of the king of the jungle and observe these powerful felines in action.', '1b2e0fb8-3949-4b58-9f6a-54f9a2e17fc0'),
+       ('29b77468-c687-4565-bf9f-0cb6c5db9183', 'Monkey Jungle', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'A lively habitat where monkeys swing from trees and entertain visitors with their antics.', '5a00d3f5-1265-41b3-a6e2-07053bdf5e72'),
+       ('99474b78-09d8-418e-8d39-3c5a3a0c4a43', 'Savannah Plains', '7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'Watch zebras, giraffes, and antelopes grazing together in an environment resembling the African savannah.', 'e537546b-4b5f-4d29-85e7-91624e059457');
 INSERT INTO event (id, title, description, location_id, open_to_public, starts_at, ends_at)
 VALUES ('e0c43b5a-1a79-4324-86b2-b91b3496c22b', 'Summer Safari', 'Join us for an exciting safari adventure in the heart of the jungle.', '36317681-9c3c-434c-9ea4-055a1f127e0a', 1, '2023-09-24 10:00:00', '2023-09-24 12:00:00'),
        ('e54d6a7b-d8d8-4729-a09a-ea143c99e451', 'Penguin Parade', 'Witness the adorable penguin parade at our Arctic Menagerie exhibit.', '5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59', 1, '2023-09-24 14:30:00', '2023-09-24 16:30:00'),
@@ -83,13 +85,4 @@ INSERT INTO wild_user_role (role_id, wild_user_id) VALUES
         ('ddb98ed3-0765-4c70-9d02-2be7d18d86d2','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
         ('e8f461a2-82c4-4d1c-9c0b-aa61f1b3c786','7c9e6679-7425-40de-944b-e07fc1f90ae7'),
         ('3a9c8e47-ea25-4322-9d7f-b0f48c349ce5','7c9e6679-7425-40de-944b-e07fc1f90ae7');
-INSERT INTO map (id, coordinate_id, zoom, bearing, current) VALUES
-        ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '7a985f4c-cf3e-4d1a-9cb4-f8e8f9a3a2f7', 15.0, -33, true);
-INSERT INTO map_locations (map_id, locations_id) VALUES
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '36317681-9c3c-434c-9ea4-055a1f127e0a'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '5c4c37ea-0a4c-49f9-9ae5-e81c7852ca59'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'e6f29eb9-9c50-44c1-8ebc-1dced4d12c09'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '78f2e590-5aa7-414e-baad-7d4a3ff7120f'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', 'c2a78481-719b-4bf7-ae3d-013a89d1eb44'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '29b77468-c687-4565-bf9f-0cb6c5db9183'),
-    ('7c75ac6f-4c91-3f4d-b6c1-694b71f63491', '99474b78-09d8-418e-8d39-3c5a3a0c4a43');
+

@@ -3,6 +3,7 @@ package com.wildevent.WildEventMenager.map.service.dtoMapper;
 import com.wildevent.WildEventMenager.coordinate.model.Coordinate;
 import com.wildevent.WildEventMenager.coordinate.model.CoordinateDTO;
 import com.wildevent.WildEventMenager.coordinate.service.CoordinateDTOMapper;
+import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
 import com.wildevent.WildEventMenager.location.model.dto.LocationWithCoordinateDTO;
 import com.wildevent.WildEventMenager.location.service.dtoMappers.LocationDTOMapper;
@@ -39,13 +40,13 @@ public class MapDTOMapperImpl implements MapDTOMapper {
 
 
     @Override
-    public MapLocationsDTO getMapLocationsDTO(Map map) {
+    public MapLocationsDTO getMapLocationsDTO(Map map, List<Location> locations) {
         UUID id = map.getId();
         CoordinateDTO coordinateDTO = coordinateDTOMapper.getCoordinateDTO(map.getCoordinate());
         double zoom = map.getZoom();
         int bearing = map.getBearing();
-        List<LocationWithCoordinateDTO> locations = locationDTOMapper.getLocationWithCoordinateDTO(map.getLocations());
-        return new MapLocationsDTO(id, coordinateDTO, zoom, bearing, locations);
+        List<LocationWithCoordinateDTO> mapLocations = locationDTOMapper.getLocationWithCoordinateDTO(locations);
+        return new MapLocationsDTO(id, coordinateDTO, zoom, bearing, mapLocations);
     }
 
     @Override
