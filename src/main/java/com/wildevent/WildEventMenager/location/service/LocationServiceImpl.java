@@ -74,8 +74,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public void updateLocation(ReceivedLocationDTO locationDTO) {
         Optional<Location> oldLocation = locationRepository.findById(locationDTO.getId());
-        oldLocation.ifPresent(location -> locationRepository.save(
-                locationDTOMapper.getUpdatedLocationFromReceivedDto(locationDTO, location)));
+        oldLocation.ifPresent(location -> locationRepository.save(locationDTOMapper.getUpdatedLocationFromReceivedDto(locationDTO, location)));
     }
 
     @Override
