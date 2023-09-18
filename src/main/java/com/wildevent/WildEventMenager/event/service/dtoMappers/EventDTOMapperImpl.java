@@ -22,7 +22,11 @@ public class EventDTOMapperImpl implements EventDTOMapper {
                 event.getDescription(),
                 event.getStartsAt(),
                 event.getEndsAt(),
-                event.getLocation().getTitle());
+                event.getLocation().getTitle(),
+                event.getOrganizer().stream()
+                        .map(WildUser::getName)
+                        .collect(Collectors.toList()),
+                event.isOpenToPublic());
     }
 
     @Override
@@ -45,7 +49,8 @@ public class EventDTOMapperImpl implements EventDTOMapper {
         event.setStartsAt(receivedEventDTO.getDateRange().getStartsAt());
         event.setEndsAt(receivedEventDTO.getDateRange().getEndsAt());
         event.setLocation(location);
-        event.setOrganizer(organizerList);
+        event.getOrganizer().clear();
+        event.getOrganizer().addAll(organizerList);
         event.setOpenToPublic(receivedEventDTO.isOpenToPublic());
         return event;
     }

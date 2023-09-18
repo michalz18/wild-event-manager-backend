@@ -18,14 +18,14 @@ public interface EventService {
     List<EventTitleDTO> getTodayIncomingEvents();
     Optional<EventDTO> getEventById(UUID id);
 
-    void addEvent(ReceivedEventDTO dto);
+    UUID addEvent(ReceivedEventDTO dto);
 
     void deleteEventById(UUID id);
 
     List<Event> findAllEventsByOrganizer(UUID id);
 
 
-    void updateEvent(ReceivedEventDTO dto, UUID id);
+    UUID updateEvent(ReceivedEventDTO dto, UUID id);
 
     void updateEventData(ReceivedEventDateDTO dto);
 }

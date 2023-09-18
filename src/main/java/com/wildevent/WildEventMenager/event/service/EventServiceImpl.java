@@ -56,12 +56,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void addEvent(ReceivedEventDTO dto) {
-        eventRepository.save(
+    public UUID addEvent(ReceivedEventDTO dto) {
+        Event newEvent = eventRepository.save(
                 eventDTOMapper.getEventFormReceivedEventDTO(
                         dto,
                         extractLocationFromDTO(dto),
                         extractWildUserFromDTO(dto)));
+        return newEvent.getId();
     }
 
     private List<WildUser> extractWildUserFromDTO(ReceivedEventDTO dto) {
@@ -95,7 +96,7 @@ public class EventServiceImpl implements EventService {
 
 
     @Override
-    public void updateEvent(ReceivedEventDTO dto, UUID id) {
+    public UUID updateEvent(ReceivedEventDTO dto, UUID id) {
         Optional<Event> getEvent = eventRepository.findById(id);
         getEvent.ifPresent(event -> eventRepository.save(
                 eventDTOMapper.getUpdatedEventFromReceivedEventDTO(
@@ -103,6 +104,7 @@ public class EventServiceImpl implements EventService {
                         dto,
                         extractLocationFromDTO(dto),
                         extractWildUserFromDTO(dto))));
+        return getEvent.orElseThrow(() -> new NoSuchElementException("Event not found!")).getId();
     }
 
     @Override

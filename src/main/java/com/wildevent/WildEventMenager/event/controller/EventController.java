@@ -71,7 +71,7 @@ public class EventController {
             return ResponseEntity.badRequest().body(errors);
         } else {
             try {
-                eventService.addEvent(dto);
+                return ResponseEntity.ok().body(eventService.addEvent(dto));
             } catch (Error e) {
                 e.printStackTrace();
             }
@@ -90,7 +90,7 @@ public class EventController {
     }
 
     @PatchMapping(EVENT_MANAGEMENT_EVENT_URL + "/{id}")
-    public ResponseEntity<Object> updateEvent(@Valid @PathVariable UUID id, @RequestBody ReceivedEventDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<Object> updateEvent2(@Valid @PathVariable UUID id, @RequestBody ReceivedEventDTO dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors()
                     .stream()
@@ -99,16 +99,16 @@ public class EventController {
             return ResponseEntity.badRequest().body(errors);
         } else {
             try {
-                eventService.updateEvent(dto, id);
+
+               return ResponseEntity.ok().body(eventService.updateEvent(dto, id));
             } catch (Error e) {
                 return ResponseEntity.badRequest().body("An error occurred: " + e.getMessage());
             }
-            return ResponseEntity.ok().body("Event updated successfully");
         }
     }
 
     @PatchMapping(EVENT_MANAGEMENT_EVENT_URL)
-    public ResponseEntity<Object> updateEvent(@RequestBody  ReceivedEventDateDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<Object> updateEvent(@RequestBody ReceivedEventDateDTO dto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors()
                     .stream()
