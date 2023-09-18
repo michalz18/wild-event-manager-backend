@@ -25,7 +25,7 @@ public class Map {
     private boolean current;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Coordinate coordinate;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Location> locations;
 
     public Map(Coordinate coordinate, double zoom, int bearing, boolean current) {
