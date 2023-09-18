@@ -151,7 +151,7 @@ class EventServiceImplTest {
                 "Event description2",
                 LocalDateTime.of(2023, 7, 27, 11, 0),
                 LocalDateTime.of(2023, 7, 27, 12, 0),
-                "Title2", List.of("Adam")
+                "Title2", List.of("Adam"), true
         );
         List<EventDTO> eventDTOS = List.of(expectedEventDTO1, expectedEventDTO2);
         when(eventRepository.findAll()).thenReturn(allEvents);
