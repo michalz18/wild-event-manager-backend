@@ -92,6 +92,7 @@ public class AuthenticationService {
 
             return AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .id(String.valueOf(user.getId()))
                     .name(user.getName())
                     .email(user.getEmail())
                     .roles(user.getRole())
