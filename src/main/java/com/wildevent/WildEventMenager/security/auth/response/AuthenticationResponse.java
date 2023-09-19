@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String token;
+    private String id;
     private String name;
     private String email;
     private Set<Role> roles;
