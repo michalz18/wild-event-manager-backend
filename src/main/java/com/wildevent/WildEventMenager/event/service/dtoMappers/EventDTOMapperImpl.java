@@ -4,6 +4,7 @@ import com.wildevent.WildEventMenager.event.model.Event;
 import com.wildevent.WildEventMenager.event.model.dto.EventDTO;
 import com.wildevent.WildEventMenager.event.model.dto.EventTitleDTO;
 import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDTO;
+import com.wildevent.WildEventMenager.event.model.dto.ReceivedEventDateDTO;
 import com.wildevent.WildEventMenager.location.model.Location;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,11 @@ public class EventDTOMapperImpl implements EventDTOMapper {
                 event.getDescription(),
                 event.getStartsAt(),
                 event.getEndsAt(),
-                event.getLocation().getTitle());
+                event.getLocation().getTitle(),
+                event.getOrganizer().stream()
+                        .map(WildUser::getName)
+                        .collect(Collectors.toList()),
+                event.isOpenToPublic());
     }
 
     @Override
@@ -36,6 +41,20 @@ public class EventDTOMapperImpl implements EventDTOMapper {
                 organizerList
         );
     }
+
+    @Override
+    public Event getUpdatedEventFromReceivedEventDTO(Event event, ReceivedEventDTO receivedEventDTO, Location location, List<WildUser> organizerList) {
+        event.setTitle(receivedEventDTO.getTitle());
+        event.setDescription(receivedEventDTO.getDescription());
+        event.setStartsAt(receivedEventDTO.getDateRange().getStartsAt());
+        event.setEndsAt(receivedEventDTO.getDateRange().getEndsAt());
+        event.setLocation(location);
+        event.getOrganizer().clear();
+        event.getOrganizer().addAll(organizerList);
+        event.setOpenToPublic(receivedEventDTO.isOpenToPublic());
+        return event;
+    }
+
     @Override
     public List<EventTitleDTO> getEventTitlesDTOFromEvent(List<Event> eventList) {
         return eventList.stream()
@@ -43,7 +62,15 @@ public class EventDTOMapperImpl implements EventDTOMapper {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Event getUpdatedEventFromReceivedDate(ReceivedEventDateDTO dto, Event event) {
+        event.setStartsAt(dto.getDateRange().getStartsAt());
+        event.setEndsAt(dto.getDateRange().getEndsAt());
+        return event;
+    }
+
     private EventTitleDTO getEventTitleDTOFromEvent(Event event) {
         return new EventTitleDTO(event.getId(), event.getTitle(), event.getStartsAt(), event.getLocation().getTitle());
     }
+
 }

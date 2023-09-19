@@ -33,7 +33,7 @@ class EventControllerTest {
     String EVENT_MANAGEMENT_EVENT_URL = AccessUrlProvider.EVENT_MANAGEMENT + "/event";
     private final static String NO_AUTH_EVENT_URL = AccessUrlProvider.NO_AUTH + "/event";
 
-   private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
     private MockMvc mockMvc;
@@ -107,8 +107,8 @@ class EventControllerTest {
     @Test
     public void testGetAllAcceptedEventsReturn200() throws Exception {
         when(eventService.getAllAcceptedEvents()).thenReturn(List.of(
-                new EventDTO("Example title", "Description", LocalDateTime.now(), LocalDateTime.now().plusHours(1), UUID.randomUUID().toString()),
-                new EventDTO("Example title2", "Description2", LocalDateTime.now(), LocalDateTime.now().plusHours(2), UUID.randomUUID().toString())
+                new EventDTO("Example title", "Description", LocalDateTime.now(), LocalDateTime.now().plusHours(1), UUID.randomUUID().toString(), List.of("John1"),true),
+                new EventDTO("Example title2", "Description2", LocalDateTime.now(), LocalDateTime.now().plusHours(2), UUID.randomUUID().toString(), List.of("John2"),true)
         ));
 
 
@@ -128,7 +128,7 @@ class EventControllerTest {
                 "Description",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusHours(1),
-                eventId.toString());
+                eventId.toString(), List.of("John"),true);
         when(eventService.getEventById(eventId)).thenReturn(Optional.of(eventDTO));
 
 

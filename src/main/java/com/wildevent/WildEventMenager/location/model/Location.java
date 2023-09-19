@@ -2,6 +2,7 @@ package com.wildevent.WildEventMenager.location.model;
 
 import com.wildevent.WildEventMenager.coordinate.model.Coordinate;
 import com.wildevent.WildEventMenager.event.model.Event;
+import com.wildevent.WildEventMenager.map.model.Map;
 import com.wildevent.WildEventMenager.user.model.WildUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,7 +33,16 @@ public class Location {
     private Coordinate coordinate;
     @OneToMany(mappedBy = "location")
     private List<Event> events;
-    @ManyToMany(mappedBy = "location")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "location")
     private List<WildUser> wildUser;
+    @ManyToOne
+    private Map map;
 
+    public Location(String title, String description, Coordinate coordinate, List<WildUser> wildUser, Map map) {
+        this.title = title;
+        this.description = description;
+        this.coordinate = coordinate;
+        this.wildUser = wildUser;
+        this.map = map;
+    }
 }

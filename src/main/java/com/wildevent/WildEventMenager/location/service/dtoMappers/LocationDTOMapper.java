@@ -1,10 +1,8 @@
 package com.wildevent.WildEventMenager.location.service.dtoMappers;
 
 import com.wildevent.WildEventMenager.location.model.Location;
-import com.wildevent.WildEventMenager.location.model.dto.LocationDTO;
-import com.wildevent.WildEventMenager.location.model.dto.LocationIdTitleDTO;
-import com.wildevent.WildEventMenager.location.model.dto.LocationPointDTO;
-import com.wildevent.WildEventMenager.location.model.dto.LocationWithCoordinateDTO;
+import com.wildevent.WildEventMenager.location.model.dto.*;
+import com.wildevent.WildEventMenager.map.model.Map;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +16,8 @@ public interface LocationDTOMapper {
     List<LocationPointDTO> getLocationPointsDtoFromLocation(List<Location> locations);
 
     List<LocationWithCoordinateDTO> getLocationWithCoordinateDTO(List<Location> locations);
+
+    Location getNewLocationFromDTO(ReceivedLocationDTO locationDTO, Map map);
+
+    Location getUpdatedLocationFromReceivedDto(ReceivedLocationDTO locationDTO, Location location);
 }
