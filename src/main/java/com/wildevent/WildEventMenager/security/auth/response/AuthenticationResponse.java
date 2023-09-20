@@ -1,6 +1,5 @@
 package com.wildevent.WildEventMenager.security.auth.response;
 
-import com.wildevent.WildEventMenager.role.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +16,5 @@ public class AuthenticationResponse {
     private String id;
     private String name;
     private String email;
-    private Set<Role> roles;
+    private Set<String> roles;
 }
