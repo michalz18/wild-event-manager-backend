@@ -28,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -91,14 +90,12 @@ public class AuthenticationService {
 
             var jwtToken = jwtService.generateToken(user);
 
-            Set<String> roleNames = mapRolesToNames(user.getRole());
-
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .id(String.valueOf(user.getId()))
                     .name(user.getName())
                     .email(user.getEmail())
-                    .roles(roleNames)
+                    .roles(user.getRole())
                     .build();
 
         } catch (Exception e) {
@@ -156,12 +153,6 @@ public class AuthenticationService {
         }
 
         return password.toString();
-    }
-
-    private Set<String> mapRolesToNames(Set<Role> roles) {
-        return roles.stream()
-                .map(Role::getName)
-                .collect(Collectors.toSet());
     }
 }
 
