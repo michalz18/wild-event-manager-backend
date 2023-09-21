@@ -29,11 +29,14 @@ public class MyEventServiceImpl implements MyEventService {
     @Override
     public List<MyEventDTO> getAllActiveEventsForLoggedInUser() {
         UUID loggedInUserId = securityContextProvider.getLoggedInUserId();
+
+        // Jeśli z jakiegoś powodu userId jest null, zwróć pustą listę
         if (loggedInUserId == null) {
             return Collections.emptyList();
         }
 
         List<MyEvent> events = myEventRepository.findDistinctByLocationWildUserIdOrOrganizerId(loggedInUserId);
+
         if (events == null || events.isEmpty()) {
             return Collections.emptyList();
         }
