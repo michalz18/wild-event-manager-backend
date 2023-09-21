@@ -72,7 +72,7 @@ public class LocationDTOMapperImpl implements LocationDTOMapper {
 
     @Override
     public Location getNewLocationFromDTO(ReceivedLocationDTO locationDTO, Map map) {
-        Coordinate coordinate = new Coordinate(locationDTO.getLongitude(), locationDTO.getLatitude());
+        Coordinate coordinate = new Coordinate(locationDTO.getLatitude(), locationDTO.getLongitude());
         return new Location(
                 locationDTO.getTitle(), locationDTO.getDescription(), coordinate, new ArrayList<>(), map);
     }
@@ -81,7 +81,7 @@ public class LocationDTOMapperImpl implements LocationDTOMapper {
     public Location getUpdatedLocationFromReceivedDto(ReceivedLocationDTO locationDTO, Location location) {
         location.setTitle(locationDTO.getTitle());
         location.setDescription(locationDTO.getDescription());
-        location.setCoordinate(new Coordinate(locationDTO.getLongitude(), locationDTO.getLatitude()));
+        location.setCoordinate(new Coordinate(locationDTO.getLatitude(), locationDTO.getLongitude()));
         return location;
     }
 

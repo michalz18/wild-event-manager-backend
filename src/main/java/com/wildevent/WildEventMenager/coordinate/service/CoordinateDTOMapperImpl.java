@@ -10,6 +10,6 @@ public class CoordinateDTOMapperImpl implements CoordinateDTOMapper {
 
     @Override
     public CoordinateDTO getCoordinateDTO(Coordinate coordinate) {
-        return new CoordinateDTO(coordinate.getId(), coordinate.getLongitude(), coordinate.getLatitude());
+        return new CoordinateDTO(coordinate.getId(), coordinate.getLatitude(), coordinate.getLongitude());
     }
 }
