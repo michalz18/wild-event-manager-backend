@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class MapServiceImpl implements MapService {
@@ -32,6 +31,8 @@ public class MapServiceImpl implements MapService {
     @Override
     public MapDTO getMapWithLocationPoints() {
         Map map = mapRepository.findFirstByCurrentIsTrue();
+        List<Location> locations = locationRepository.getAllByMap(map);
+        map.setLocations(locations);
         return mapDTOMapper.getMapDTO(map);
     }
 
