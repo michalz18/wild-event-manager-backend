@@ -3,8 +3,8 @@
  Our project is already deployed, you can see it here: 
  
 
- 1. [Backoffice](wildeventmanager.com)
- 2. [Clients app](wildevent.com.pl)
+ 1. [Backoffice](http://wildeventmanager.com/)
+ 2. [Clients app](http://wildevent.com.pl/)
 
   
 
@@ -26,7 +26,7 @@ A dynamic event management solution crafted to provide an immersive experience f
 
 - [Project status](#-project-status)
 
-- [Technologies](#-technologies)
+- [Technologies](#%EF%B8%8F-technologies--tools)
 
 - [License](#-license)
 
