@@ -20,15 +20,15 @@ A dynamic event management solution crafted to provide an immersive experience f
 
 - [Team](#-team)
 
-- [To do](#to-do)
+- [To do](#-to-do)
 
-- [Features](#features)
+- [Features](#-features)
 
-- [Project status](#project-status)
+- [Project status](#-project-status)
 
-- [Technologies](#technologies)
+- [Technologies](#-technologies)
 
-- [License](#license)
+- [License](#-license)
 
 ## 👥 Team
 
