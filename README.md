@@ -6,7 +6,10 @@
  1. [Backoffice](http://wildeventmanager.com/)
  2. [Clients app](http://wildevent.com.pl/) - designed for mobile devices
 
-  
+Here you can find other repositories for this project: 
+
+ 1. [Backoffice](https://github.com/CodecoolGlobal/epg-3-java-marcinlewinski)
+ 2. [Clients app](https://github.com/CodecoolGlobal/epg-2-java-marcinlewinski)
 
 ## 🌟 Project aim
 
