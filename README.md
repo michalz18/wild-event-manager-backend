@@ -18,7 +18,7 @@ A dynamic event management solution crafted to provide an immersive experience f
 
 ## 📖 Table of contents
 
-- [Team](#team)
+- [Team](#-team)
 
 - [To do](#to-do)
 
