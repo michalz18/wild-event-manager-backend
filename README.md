@@ -4,7 +4,7 @@
  
 
  1. [Backoffice](http://wildeventmanager.com/)
- 2. [Clients app](http://wildevent.com.pl/)
+ 2. [Clients app](http://wildevent.com.pl/) - designed for mobile devices
 
   
 
@@ -78,7 +78,8 @@ Mentors: Michał Kruczkowski
 
 - Application deployment
 
-  
+- Both applications are responsive, but the client part of the project is mainly intended for users using phones
+
   
 
 ## 🟢 Project status
