@@ -8,8 +8,8 @@
 
 Here you can find other repositories for this project: 
 
- 1. [Backoffice](https://github.com/CodecoolGlobal/epg-3-java-marcinlewinski)
- 2. [Clients app](https://github.com/CodecoolGlobal/epg-2-java-marcinlewinski)
+ 1. [Backoffice](https://github.com/michalz18/wild-event-manager-frontend-backoffice)
+ 2. [Clients app](https://github.com/michalz18/wild-event-manager-frontend-client)
 
 ## 🌟 Project aim
 
